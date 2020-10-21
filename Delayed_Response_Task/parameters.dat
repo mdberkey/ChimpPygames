@@ -1,0 +1,33 @@
+# Alter user-defined parameters here #
+#
+subject_name = null
+#
+spatially_cued_stimulus_name = SCS
+other_stimuli_name = non-SCS
+#
+number_of_trials = 5
+#
+# Number of stimuli displayed *number must be between 3-9 inclusive*
+number_of_stimuli = 9
+#
+# *out of 9 possible locations [1-9] inclusive and should be lower than number_of_stimuli*
+number_of_possible_SCS_locations = 3
+#
+# Size of stimuli boxes in pixels *MAX IS 200 x 200 px due to screen size* #
+# Recommended size: 100 x 100 px
+stimulus_length = 150
+stimulus_height = 150
+#
+# Add retention interval lengths here in milliseconds separated by commas.
+# Correct use: "retention_interval_lengths = 5000, 6000, 1500" -> 5 second, 6 second, and 1.5 second intervals
+# *Do not leave a comma on the end!*
+retention_interval_lengths = 1000, 3000, 500, 4000
+#
+# y for randomly shaped stimuli, n for rectangular stimuli only
+randomly_shaped_stimuli = y
+#
+# Amount of time red screen is on after a trial in miliseconds
+passed_inter_trial_interval = 3000
+failed_inter_trial_interval = 5000
+#
+# *Do not forget to save the file* #

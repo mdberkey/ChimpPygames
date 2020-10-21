@@ -1,0 +1,26 @@
+# Alter user-defined parameters here #
+#
+subject_name = null
+#
+positive_stimulus_name = S+
+negative_stimulus_name = S-
+#
+# Amount of correct answers in a row needed to move on to the next
+# pair of different colored stimuli.
+number_of_correct_in_a_row = 5
+#
+# Amount of times two new stimuli appear after correct responses
+number_of_stimulus_pairs = 5
+#
+# Size of stimuli in pixels *Max resolution on touchscreen is 1280 x 1024 px* #
+stimulus_length = 150
+stimulus_height = 150
+#
+# y for randomly shaped stimuli, n for rectangular stimuli only
+randomly_shaped_stimuli = y
+#
+# Amount of time red screen is on after a trial in miliseconds
+passed_inter_trial_interval = 1000
+failed_inter_trial_interval = 2000
+#
+# *Do not forget to save the file* #

@@ -1,0 +1,29 @@
+# Alter user-defined parameters here #
+#
+subject_name = null
+#
+sample/positive_stimulus_name = CS+
+negative_stimulus_name = FS-
+#
+number_of_trials = 10
+#
+# *Comparison choices must be between (2-4)*
+number_of_comparison_stimuli = 4
+#
+# Size of stimuli boxes in pixels *MAX IS 350 x 350 px due to screen size* #
+# Recommended size: 150 x 150 px
+stimulus_length = 150
+stimulus_height = 150
+#
+# n -> Sample stimulus disappears after being clicked 
+# y -> Sample stimulus stays visible
+sample_stimulus_visible = n
+#
+# y for randomly shaped stimuli, n for rectangular stimuli only
+randomly_shaped_stimuli = y
+#
+# Amount of time red screen is on after a trial in miliseconds
+passed_inter_trial_interval = 3000
+failed_inter_trial_interval = 5000
+#
+# *Do not forget to save the file* #

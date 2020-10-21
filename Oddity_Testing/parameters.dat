@@ -1,0 +1,25 @@
+# Alter user-defined parameters here #
+#
+subject_name = null
+#
+sample_stimulus_name = SS
+odd_stimulus_name = SS_ODD
+#
+number_of_trials = 5
+#
+# Number of stimuli displayed *number must be between 3-9 inclusive*
+number_of_stimuli = 9
+#
+# Size of stimuli boxes in pixels *MAX IS 350 x 350 px due to screen size* #
+# Recommended size: 150 x 150 px
+stimulus_length = 150
+stimulus_height = 150
+#
+# y for randomly shaped stimuli, n for rectangular stimuli only
+randomly_shaped_stimuli = y
+#
+# Amount of time red screen is on after a trial in miliseconds
+passed_inter_trial_interval = 3000
+failed_inter_trial_interval = 5000
+#
+# *Do not forget to save the file* #
