@@ -1,4 +1,5 @@
 #!/bin/bash
+
 sudo apt-get update
 sudo apt-get install python3
 
@@ -10,8 +11,8 @@ chmod +x Match_To_Sample/MatchToSample.sh
 chmod +x Oddity_Testing/OddityTesting.sh
 chmod +x Social_Stimuli_As_Rewards/SocialStimuli.sh
 chmod +x Two_Choice_Discrimination/TwoChoiceDiscrim.sh
-chmod +x PygameTools/pellet.sh
 
+sleep 10
 whiptail \
          --title "ChimpPygames Setup" \
          --msgbox "Setup Complete" 8 45
