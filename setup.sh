@@ -2,6 +2,7 @@
 
 sudo apt-get update
 sudo apt-get install python3
+sudo apt-get install qjoypad
 
 chmod +x Training_Task/TrainingTaskP1.sh
 chmod +x Training_Task/TrainingTaskP2.sh
