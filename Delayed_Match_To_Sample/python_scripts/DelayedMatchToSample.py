@@ -34,7 +34,7 @@ if "y" in str(params["randomly_shaped_stimuli"]) or "Y" in str(params["randomly_
     randShapes = True
 else:
     randShapes = False
-posLocation = randint(0, stimAmt)
+posLocation = randint(0, stimAmt - 1)
 
 def trial_P1(length, height):
     """
@@ -115,6 +115,7 @@ def trial_P2(posColor):
         if i == 1:
             currentLength = int(maxLength / 4)
             currentHeight= int(maxHeight * 0.8)
+                posLocation = randint(0, stimAmt)
 
 def check_stim(xCoord, yCoord):
     for i in range(stimAmt):
@@ -163,6 +164,7 @@ while running:
                     trialStart = False
                     continue
             else:
+                posLocation = randint(0, stimAmt)
                 if stimList[posLocation].collidepoint(xCoord, yCoord) and screen.fg.get_at((xCoord, yCoord)) != (0,0,0):
                     PgTools.response(screen, True, passDelay)
                     PgTools.write_ln(
@@ -200,4 +202,5 @@ while running:
                 randRI = random.choice(RILengths)
                 seed = random.randint(0, 99999)
                 trial_P1(stimLength, stimHeight)
+                posLocation = randint(0, stimAmt - 1) 
         pg.display.update()

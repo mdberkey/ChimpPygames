@@ -30,7 +30,7 @@ if("y" in str(params["cursor_hidden"]) or "Y" in str(params["cursor_hidden"])):
     
 # Screen Tools
 class Screen(object):
-    def __init__(self, size=SCREEN_SIZE, col=BLACK, fullscreen=True):
+    def __init__(self, size=SCREEN_SIZE, col=BLACK, fullscreen=False):
         """
         Pygame screen on which to draw stimuli, etc.
 

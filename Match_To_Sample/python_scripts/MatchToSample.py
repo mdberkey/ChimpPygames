@@ -15,6 +15,7 @@ file = open("Match_To_Sample/parameters.dat")
 params = PgTools.get_params(file)
 file.close()
 
+# gathers parameters data
 subjectName = str(params["subject_name"])
 posStimName = str(params["sample/positive_stimulus_name"])
 negStimName = str(params["negative_stimulus_name"])
@@ -32,7 +33,7 @@ if "y" in str(params["randomly_shaped_stimuli"]) or "Y" in str(params["randomly_
     randShapes = True
 else:
     randShapes = False
-posLocation = randint(0, stimAmt)
+posLocation = randint(0, stimAmt - 1)
 
 def trial_P1(length, height):
     """
@@ -82,7 +83,9 @@ def trial_P2(posColor):
     currentLength = int(maxLength / 4)
     currentHeight = int(maxHeight * 0.4)
     for i in range(stimAmt):
+        print(posLocation) 
         if i == posLocation:
+            print("foo") ##############
             stimList.append(
                 pg.draw.rect(
                     screen.fg,
@@ -189,4 +192,5 @@ while running:
                 randNums = [randint(0, 2), randint(0, 1)]
                 seed = random.randint(0, 99999)
                 trial_P1(stimLength, stimHeight)
+                posLocation = randint(0, stimAmt - 1)
         pg.display.update()
