@@ -83,9 +83,7 @@ def trial_P2(posColor):
     currentLength = int(maxLength / 4)
     currentHeight = int(maxHeight * 0.4)
     for i in range(stimAmt):
-        print(posLocation) 
         if i == posLocation:
-            print("foo") ##############
             stimList.append(
                 pg.draw.rect(
                     screen.fg,

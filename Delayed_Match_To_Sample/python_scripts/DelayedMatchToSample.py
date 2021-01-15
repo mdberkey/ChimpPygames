@@ -115,7 +115,6 @@ def trial_P2(posColor):
         if i == 1:
             currentLength = int(maxLength / 4)
             currentHeight= int(maxHeight * 0.8)
-                posLocation = randint(0, stimAmt)
 
 def check_stim(xCoord, yCoord):
     for i in range(stimAmt):
@@ -123,7 +122,7 @@ def check_stim(xCoord, yCoord):
             return True
 
 PgTools.write_ln(
-    filename="Match_To_Sample/results.csv",
+    filename="Delayed_Match_To_Sample/results.csv",
     data=[
         "subject_name",
         "trial",
@@ -164,11 +163,10 @@ while running:
                     trialStart = False
                     continue
             else:
-                posLocation = randint(0, stimAmt)
                 if stimList[posLocation].collidepoint(xCoord, yCoord) and screen.fg.get_at((xCoord, yCoord)) != (0,0,0):
                     PgTools.response(screen, True, passDelay)
                     PgTools.write_ln(
-                        filename="Match_To_Sample/results.csv",
+                        filename="Delayed_Match_To_Sample/results.csv",
                         data=[
                             subjectName,
                             trialNum,
@@ -179,7 +177,7 @@ while running:
                 elif check_stim(xCoord, yCoord):
                     PgTools.response(screen, False, failDelay)
                     PgTools.write_ln(
-                        filename="Match_To_Sample/results.csv",
+                        filename="Delayed_Match_To_Sample/results.csv",
                         data=[
                             subjectName,
                             trialNum,
