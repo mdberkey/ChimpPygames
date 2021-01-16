@@ -62,7 +62,6 @@ def main():
             print(pcolors.WARNING + "### WARNING ###")
             print("ALL results.csv files within ChimpPygames will cleared and any data not stored outside will be lost!")
             print("### WARNING ###" + pcolors.ENDC)
-        f.close()
             promptInput = input(pcolors.OKCYAN + "Do you want to continue? (enter y to continue or anything else to exit): " + pcolors.ENDC)
             if(promptInput == 'y'):
                 print(pcolors.OKGREEN + "Clearing all results.csv files..." + pcolors.ENDC)
@@ -79,6 +78,9 @@ def main():
             print(pcolors.OKBLUE + "Exited " + wd_dict.get(usrInput) + pcolors.ENDC)
 
 def empty_csv():
+    """
+    empties all csv files in ChimpPygames
+    """
     fname = "results.csv"
     for cmd in wd_dict:
         os.chdir(wd_dict.get(cmd))
@@ -86,6 +88,13 @@ def empty_csv():
         f = open(fname, "w+")
         f.close()
         os.chdir('../')
+    os.chdir(wd_dict.get("tt1"))
+    f = open("resultsP1.csv", "w+")
+    f.close()
+    f = open("resultsP2.csv", "+w")
+    f.close()
+    os.chdir('../')
+
 
 main()
 
