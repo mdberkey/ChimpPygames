@@ -40,9 +40,7 @@ wd_dict = {
         "ssar": "Social_Stimuli_As_Rewards",
         }
 
-"""
-Main frontend program. Allows user to run all expirements and clear csv files.
-"""
+
 def main():
     """
     Main frontend program. Allows user to run all expirements and clear csv files.
@@ -65,11 +63,9 @@ def main():
             print(pcolors.WARNING + "Exiting program...")
             exit()
         elif usrInput == "ecsv":
-            print(pcolors.WARNING + "### WARNING ###")
-            print("ALL results.csv files within ChimpPygames will cleared and any data not stored outside will be lost!")
-            print("### WARNING ###" + pcolors.ENDC)
-            promptInput = input(pcolors.OKCYAN + "Do you want to continue? (enter y to continue or anything else to exit): " + pcolors.ENDC)
-            if(promptInput == 'y'):
+            msgStr = "ALL results.csv files within ChimpPygames will cleared and any data not stored outside will be lost!"
+            
+            if ynPrompt(msgStr, True):
                 print(pcolors.OKGREEN + "Clearing all results.csv files..." + pcolors.ENDC)
                 empty_csv()
                 print(pcolors.OKBLUE + "Files cleared." + pcolors.ENDC)
@@ -79,9 +75,32 @@ def main():
         elif not usrInput in cmd_dict:
             print(pcolors.FAIL + "Command invalid: Please enter a valid command." + pcolors.ENDC)
         else:
-            print(pcolors.OKGREEN + "Starting " + wd_dict.get(usrInput) + pcolors.ENDC)
-            subprocess.call(['sh', cmd_dict.get(usrInput)], cwd = wd_dict.get(usrInput))
-            print(pcolors.OKBLUE + "Exited " + wd_dict.get(usrInput) + pcolors.ENDC)
+            if ynPrompt("Please make sure all of the parameters in parameters.txt in the " 
+                    + wd_dict.get(usrInput) + " folder are set correctly before continuing!"):
+                print(pcolors.OKGREEN + "Starting " + wd_dict.get(usrInput) + pcolors.ENDC)
+                subprocess.call(['sh', cmd_dict.get(usrInput)], cwd = wd_dict.get(usrInput))
+                print(pcolors.OKBLUE + "Results Recorded. Exited " + wd_dict.get(usrInput) + pcolors.ENDC)
+            else:
+                 print(pcolors.OKBLUE + "Exited prompt." + pcolors.ENDC)
+                 continue
+
+def ynPrompt(message="", warning=False):
+    """
+    Prompts the user with a yes or no question to continue with a message
+    :param message: message displayed to user
+    :param warning: puts warning labels around message if True and not if False
+    """
+    if warning:
+        print(pcolors.WARNING + "### WARNING ###")
+        print(message)
+        print("### WARNING ###" + pcolors.ENDC)
+    else:
+        print(pcolors.WARNING + message + pcolors.ENDC)
+    promptInput = input(pcolors.OKCYAN + "Do you want to continue? (enter y to continue or anything else to exit): " + pcolors.ENDC)
+    if(promptInput == 'y'):
+        return True
+    else:
+        return False
 
 def empty_csv():
     """

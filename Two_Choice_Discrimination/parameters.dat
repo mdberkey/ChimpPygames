@@ -7,7 +7,7 @@ negative_stimulus_name = S-
 #
 # Amount of correct answers in a row needed to move on to the next
 # pair of different colored stimuli.
-number_of_correct_in_a_row = 5
+number_of_correct_in_a_row = 3
 #
 # Amount of times two new stimuli appear after correct responses
 number_of_stimulus_pairs = 5
