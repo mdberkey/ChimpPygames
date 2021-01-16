@@ -1,1 +1,5 @@
-
+subject_name, trial, input_coordinates, accuracy, "D:01/15/21 T:19:08:27"
+null, 1, "252, 175", passed, "D:01/15/21 T:19:08:31"
+null, 2, "466, 271", failed, "D:01/15/21 T:19:08:35"
+subject_name, trial, input_coordinates, accuracy, "D:01/15/21 T:19:33:07"
+subject_name, trial, input_coordinates, accuracy, "D:01/15/21 T:19:36:20"
