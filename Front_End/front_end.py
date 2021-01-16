@@ -40,7 +40,13 @@ wd_dict = {
         "ssar": "Social_Stimuli_As_Rewards",
         }
 
+"""
+Main frontend program. Allows user to run all expirements and clear csv files.
+"""
 def main():
+    """
+    Main frontend program. Allows user to run all expirements and clear csv files.
+    """
     print(pcolors.HEADER + "Please choose an expirement to run by entering the corresponding abreviation or q to exit program:" + pcolors.ENDC)
     while True:
         print("\ntt1  : Training_Task_1")
