@@ -22,7 +22,8 @@ Raspberry PI 4, Elo Touchscreen, Ontrak Relay I/O interface, and a custom Pellet
 6. Before starting however, one should make sure the parameters are set right:
          1. Open the ChimpPygames folder on the desktop and then the corresponding folder to the desired experiment.
          2. Edit the desired parameters in parameters.dat in the folder and SAVE the file.
-- ALTERNATIVE METHOD - (old way)
+
+- ALTERNATIVE METHOD TO USE - (old way)
 1. Open the ChimpPygames folder on the desktop and then the corresponding folder to the desired experiment.
 2. Double click on the <experiment_name>.sh file, a box should pop up, then click "execute" to begin the experiments.
 5. After the expirement is done or exited manually, open the results.csv file to gather data from the experiment/s.
