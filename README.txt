@@ -28,6 +28,12 @@ Raspberry PI 4, Elo Touchscreen, Ontrak Relay I/O interface, and a custom Pellet
 2. Double click on the <experiment_name>.sh file, a box should pop up, then click "execute" to begin the experiments.
 5. After the expirement is done or exited manually, open the results.csv file to gather data from the experiment/s.
 
+- HOW TO UPDATE -
+1. Make sure Raspberry is connected to internet.
+2. Open Terminal and enter: cd Desktop/ChimpPygames
+3. Enter into the Terminal: git pull
+4. After it has completed, ChimpPygames should be updated.
+
 *Important Notes*
 - Press ESC, Q, or DOWNKEY to stop and exit the experiment.
 - Data is recorded every trial during an expirement. So data is saved even if one exits the expirement early.
