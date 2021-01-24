@@ -1,7 +1,7 @@
 These programs are for conducting expirements and gathering data for primate research running on a
 Raspberry PI 4, Elo Touchscreen, Ontrak Relay I/O interface, and a custom Pellet Dispenser.
 
--SETUP-
+- SETUP -
 1. Make sure Raspberry PI is connected to the internet by checking the wifi/ethernet symbol in the top right corner.
 2. Open Terminal on Raspberry PI by clicking the raspberry button in the top left corner > Accessories > Terminal
 3. Update apt by entering into the terminal: sudo apt update
@@ -13,7 +13,7 @@ Raspberry PI 4, Elo Touchscreen, Ontrak Relay I/O interface, and a custom Pellet
 9. The ChimpPygames folder should appear on the desktop.
 10. If no errors occured then everything should be set up and ready to run.
 
--HOW TO USE- (after setup)
+- HOW TO USE - (after setup)
 1. Make sure touchscreen, relay, and pellet dispenser are all plugged in correctly (Dispencer Relay Output wires should be in K1 sockets).
 2. Edit the globalParameters.dat file in the ChimpPygames/PygameTools folder to alter parameters for every program.
 3. Open Terminal on Raspberry PI and enter: cd Desktop/ChimpPygames
