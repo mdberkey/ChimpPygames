@@ -5,8 +5,8 @@ subject_name = null
 number_of_trials = 5
 #
 # Size of first stimulus in pixels *Max resolution on touchscreen is 1280 x 1024 px* #
-first_stimulus_length = 1000
-first_stimulus_height = 1000
+first_stimulus_length = 800
+first_stimulus_height = 600
 #
 # Size of last stimulus in pixels #
 last_stimulus_length = 50

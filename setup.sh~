@@ -2,7 +2,6 @@
 
 sudo apt-get update
 sudo apt-get install python3
-sudo pip install moviepy
 # (for marmpygames) sudo apt-get install qjoypad
 
 chmod +x setup.sh
