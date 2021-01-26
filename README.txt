@@ -32,7 +32,8 @@ Raspberry PI 4, Elo Touchscreen, Ontrak Relay I/O interface, and a custom Pellet
 1. Make sure Raspberry is connected to internet.
 2. Open Terminal and enter: cd Desktop/ChimpPygames
 3. Enter into the Terminal: git pull
-4. After it has completed, ChimpPygames should be updated.
+4. run setup.sh by double clicking on the file and clicking execute
+5. After it has completed, ChimpPygames should be updated.
 
 *Important Notes*
 - Press ESC, Q, or DOWNKEY to stop and exit the experiment.
