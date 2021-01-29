@@ -15,6 +15,7 @@ params = PgTools.get_params(file)
 file.close()
 
 subjectName = str(params["subject_name"])
+trialsAmt = int(params["number_of_trials"])
 stimLength = int(params["stimulus_length"])
 stimHeight = int(params["stimulus_height"])
 passDelay = int(params["passed_inter_trial_interval"])
@@ -75,7 +76,7 @@ while running:
                     data=[subjectName, trialNum, ("\"" + str(xCoord) + ", " + str(yCoord) + "\""), "failed",],
                 )
             trialNum += 1
-            if passedTrials == 3:
+            if passedTrials == trialsAmt:
                 PgTools.end_screen(screen)
                 while True:
                     for event in pg.event.get():
