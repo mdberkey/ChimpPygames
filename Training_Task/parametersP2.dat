@@ -2,6 +2,7 @@
 #
 subject_name = null
 #
+# * Number of Trials passed before expirement ends *
 number_of_trials = 5
 #
 # Size of stimulus box in pixels *Max resolution on touchscreen is 1280 x 1024 px* #
