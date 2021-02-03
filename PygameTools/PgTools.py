@@ -63,7 +63,8 @@ def get_params(fileObj):
     reads all parameter variables in opened file 'fileObj'
     :return: parameter's values in a dictionary
     """
-    pg.mouse.set_visible(CURSOR_VISIBLE) # sets cursor visibility
+    if not CURSOR_VISIBLE:         # sets mouse to invisible
+        pg.mouse.set_cursor((8,8),(0,0),(0,0,0,0,0,0,0,0),(0,0,0,0,0,0,0,0))
     params = {}
     for line in fileObj:
         line = line.strip()
