@@ -8,6 +8,7 @@ import PgTools
 # initialize pygame and screen
 pg.init()
 screen = PgTools.Screen()
+curs_group = pg.sprite.Group()
 
 file = open("Training_Task/parametersP1.dat")
 params = PgTools.get_params(file)
@@ -52,8 +53,7 @@ def start_trial(length, height):
         PgTools.rand_shape(screen.fg, (
                     int((PgTools.SCREEN_SIZE[0] - length) / 2),
                     int((PgTools.SCREEN_SIZE[1] - height) / 2),
-                    ),(length, height))
-
+                    ),(length, height)) 
 
 PgTools.write_ln(
     filename="Training_Task/resultsP1.csv",
@@ -68,10 +68,10 @@ running = True
 while running:
     for event in pg.event.get():
         PgTools.quit_pg(event)
-        if event.type == MOUSEBUTTONDOWN:
-            xCoord, yCoord = event.pos
+        if event.type == MOUSEMOTION:
+	    xCoord, yCoord = event.pos       
             if stimulus.collidepoint(xCoord, yCoord) and screen.fg.get_at((xCoord, yCoord)) != (0,0,0):
-                PgTools.response(screen, True, passDelay)
+		PgTools.response(screen, True, passDelay)
                 PgTools.write_ln(
                     filename="Training_Task/resultsP1.csv",
                     data=[
@@ -83,17 +83,7 @@ while running:
                     ],
                 )
             else:
-                PgTools.response(screen, False, failDelay)
-                PgTools.write_ln(
-                    filename="Training_Task/resultsP1.csv",
-                    data=[
-                        subjectName,
-                        trialNum,
-                        "\"" + str((stimLength, stimHeight)) + "\"",
-                        "\"" + str((xCoord, yCoord)) + "\"",
-                        "failed",
-                    ],
-                )
+                continue
             trialNum += 1
             stimLength -= lengthDecrease
             stimHeight -= heightDecrease
@@ -103,4 +93,7 @@ while running:
                     for event in pg.event.get():
                         PgTools.quit_pg(event)
             start_trial(stimLength, stimHeight)
+    
+    x,y = pg.mouse.get_pos()
+    PgTools.set_cursor(screen.fg, x, y)
     pg.display.update()
