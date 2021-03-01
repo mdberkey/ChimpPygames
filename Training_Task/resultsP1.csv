@@ -1,0 +1,4 @@
+subject_name, trial, stimulus_size, input_coordinates, accuracy, "D:03/01/21 T:11:19:20"
+null, 1, "(800, 600)", "(765, 450)", passed, "D:03/01/21 T:11:19:22"
+null, 2, "(650, 490)", "(568, 607)", failed, "D:03/01/21 T:11:19:26"
+null, 3, "(500, 380)", "(723, 558)", passed, "D:03/01/21 T:11:19:28"

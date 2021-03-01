@@ -1,5 +1,4 @@
-These programs are for conducting expirements and gathering data for primate research running on a
-Raspberry PI 4, Elo Touchscreen, Ontrak Relay I/O interface, and a custom Pellet Dispenser.
+These programs are for conducting expirements and gathering data for primate research running on a Raspberry PI 4, Elo Touchscreen, Ontrak Relay I/O interface, and a custom Pellet Dispenser.
 
 - SETUP -
 1. Make sure Raspberry PI is connected to the internet by checking the wifi/ethernet symbol in the top right corner.
