@@ -44,6 +44,7 @@ def start_trial(length, height):
     )
     if randShapes:
         PgTools.rand_shape(screen.fg, (xCoord, yCoord), (length, height), randInt)
+    PgTools.set_cursor(screen, mid=True)
 
 PgTools.write_ln(
     filename="Training_Task/resultsP2.csv",
@@ -60,7 +61,7 @@ running = True
 while running:
     for event in pg.event.get():
         PgTools.quit_pg(event)
-        if event.type == MOUSEBUTTONDOWN:
+        if event.type == MOUSEMOTION:
             xCoord, yCoord = event.pos
             if stimulus.collidepoint(xCoord, yCoord) and screen.fg.get_at((xCoord, yCoord)) != (0,0,0):
                 PgTools.response(screen, True, passDelay)
@@ -70,11 +71,7 @@ while running:
                 )
                 passedTrials += 1
             else:
-                PgTools.response(screen, False, failDelay)
-                PgTools.write_ln(
-                    filename="Training_Task/resultsP2.csv",
-                    data=[subjectName, trialNum, ("\"" + str(xCoord) + ", " + str(yCoord) + "\""), "failed",],
-                )
+                continue 
             trialNum += 1
             if passedTrials == trialsAmt:
                 PgTools.end_screen(screen)
@@ -82,4 +79,5 @@ while running:
                     for event in pg.event.get():
                         PgTools.quit_pg(event)
             start_trial(stimLength, stimHeight)
+    PgTools.draw_cursor(screen)
     pg.display.update()

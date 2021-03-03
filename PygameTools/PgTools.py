@@ -1,5 +1,5 @@
 """
-Provides other programs with useful functions and elements
+Provides other programs with useful functionality
 """
 import os
 import random
@@ -20,7 +20,7 @@ for line in file:
 file.close()
 
 # Constants
-SCREEN_SIZE = (int(params["screen_width"]), int(params["screen_height"]))  # (length/width, height) of Elo Touchscreen in px
+SCREEN_SIZE = (int(params["screen_width"]), int(params["screen_height"]))  # (length/width, height) of Touchscreen in px
 BLACK = (0, 0, 0)
 GREEN = (0, 128, 0)
 RED = (255, 0, 0)
@@ -107,9 +107,25 @@ def response(screen, accuracy=None, delay=5000):
     pg.event.clear()
     screen.bg.fill(BLACK)
 
-def draw_cursor(surface, xCoord, yCoord):
-	surface.blit(cursor_img, (xCoord - 25, yCoord - 25))
-	
+def set_cursor(screen, start_x=0, start_y=0, mid=False):
+    """
+    sets screen for cursor support
+    :param screen: screen obj to set
+    :start_x: x coord of cursor start
+    :start_y: y coord of cursor start
+    """
+    if not mid:
+        pg.mouse.set_pos(start_x, start_y)
+    screen.bg.blit(screen.fg, (0, 0)) 
+
+def draw_cursor(screen):
+    """
+    updates cursor to new position
+    :param screen: screen obj to draw cursor upon
+    """
+    screen.fg.blit(screen.bg, (0, 0))
+    xCoord, yCoord = pg.mouse.get_pos()
+    screen.fg.blit(cursor_img, (xCoord - 25, yCoord - 25))
 
 def rand_x_coord(length):
     """

@@ -3,14 +3,14 @@
 subject_name = null
 #
 # * Number of Trials passed before expirement ends *
-number_of_trials = 3
+number_of_trials = 10
 #
 # Size of stimulus box in pixels *Max resolution on touchscreen is 1280 x 1024 px* #
 stimulus_length = 150
 stimulus_height = 150
 #
 # y for randomly shaped stimuli, n for rectangular stimuli only
-randomly_shaped_stimuli = y
+randomly_shaped_stimuli = n
 #
 # Amount of time red screen is on after a trial in miliseconds
 passed_inter_trial_interval = 1000

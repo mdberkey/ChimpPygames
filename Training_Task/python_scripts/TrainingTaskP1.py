@@ -36,23 +36,26 @@ def start_trial(length, height):
     :param height: width of new stimulus
     """
     screen.refresh()
+
     global stimulus
+    x_mid = int((PgTools.SCREEN_SIZE[0] - length) / 2)
+    y_mid = int((PgTools.SCREEN_SIZE[1] - height) / 2)
+
     stimulus = pg.draw.rect(
         screen.fg,
         PgTools.GREEN,
         (
-            (
-                int((PgTools.SCREEN_SIZE[0] - length) / 2),
-                int((PgTools.SCREEN_SIZE[1] - height) / 2),
-            ),
+            (x_mid, y_mid),
             (length, height),
         ),
     )
     if randShapes:
-        PgTools.rand_shape(screen.fg, (
-                    int((PgTools.SCREEN_SIZE[0] - length) / 2),
-                    int((PgTools.SCREEN_SIZE[1] - height) / 2),
-                    ),(length, height)) 
+        PgTools.rand_shape(screen.fg, (x_mid, y_mid), (length, height))  
+    
+    curs_x = int(PgTools.SCREEN_SIZE[0] / 2)
+    curs_y = int(PgTools.SCREEN_SIZE[1] * 0.85)
+    PgTools.set_cursor(screen, curs_x, curs_y) 
+
 
 PgTools.write_ln(
     filename="Training_Task/resultsP1.csv",
@@ -61,7 +64,6 @@ PgTools.write_ln(
 
 trialNum = 1
 start_trial(stimLength, stimHeight)
-screen.bg.blit(screen.fg, (0, 0))
 
 # game loop
 running = True
@@ -93,10 +95,7 @@ while running:
                     for event in pg.event.get():
                         PgTools.quit_pg(event)
             start_trial(stimLength, stimHeight)
-            screen.bg.blit(screen.fg, (0, 0))
     
-    screen.fg.blit(screen.bg, (0, 0)) 
-    x,y = pg.mouse.get_pos()
-    PgTools.draw_cursor(screen.fg, x, y)
+    PgTools.draw_cursor(screen)
     pg.display.update()
-    #pg.display.update(screen.bg)
+

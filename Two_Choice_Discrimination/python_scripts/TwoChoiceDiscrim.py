@@ -76,6 +76,7 @@ def start_trial(length, height, cols):
                 PgTools.rand_shape(screen.fg, (posX, posY,),(length, height), posSeed)
                 PgTools.rand_shape(screen.fg, (negX, negY,),(length, height), negSeed)
             break
+    PgTools.set_cursor(screen, mid=True)
 
 
 PgTools.write_ln(
@@ -109,7 +110,7 @@ running = True
 while running:
     for event in pg.event.get():
         PgTools.quit_pg(event)
-        if event.type == MOUSEBUTTONDOWN:
+        if event.type == MOUSEMOTION:
             xCoord, yCoord = event.pos
             if posStim.collidepoint(xCoord, yCoord) and screen.fg.get_at((xCoord, yCoord)) != (0,0,0):
                 PgTools.response(screen, True, passDelay)
@@ -162,4 +163,5 @@ while running:
                     for event in pg.event.get():
                         PgTools.quit_pg(event)
             start_trial(stimLength, stimHeight, colorPair)
+    PgTools.draw_cursor(screen)
     pg.display.update()

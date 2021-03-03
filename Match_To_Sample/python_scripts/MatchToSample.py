@@ -69,6 +69,7 @@ def trial_P1(length, height):
     if randShapes:
         PgTools.rand_shape(screen.fg, ((PgTools.SCREEN_SIZE[0] - length)/2, 
         (PgTools.SCREEN_SIZE[1] - height) / 5), (stimLength, stimHeight), seed)
+    PgTools.set_cursor(screen, mid=True)
 
 def trial_P2(posColor):
     """
@@ -114,11 +115,14 @@ def trial_P2(posColor):
         if i == 1:
             currentLength = int(maxLength / 4)
             currentHeight= int(maxHeight * 0.8)
+    PgTools.set_cursor(screen, mid=True)
+
 
 def check_stim(xCoord, yCoord):
     for i in range(stimAmt):
         if i != posLocation and stimList[i].collidepoint(xCoord, yCoord) and screen.fg.get_at((xCoord, yCoord)) != (0,0,0):
             return True
+
 
 PgTools.write_ln(
     filename="Match_To_Sample/results.csv",
@@ -146,10 +150,10 @@ running = True
 while running:
     for event in pg.event.get():
         PgTools.quit_pg(event)
-        if event.type == MOUSEBUTTONDOWN:
+        if event.type == MOUSEMOTION:
             xCoord, yCoord = event.pos
             if trialStart:
-                if sampleStim.collidepoint(xCoord, yCoord) and screen.fg.get_at((xCoord, yCoord)) != (0,0,0):
+                if sampleStim.collidepoint(xCoord, yCoord) and screen.fg.get_at((xCoord, yCoord)) != (0,0,):
                     trial_P2(posColor)
                     trialStart = False
                     continue
@@ -191,4 +195,5 @@ while running:
                 seed = random.randint(0, 99999)
                 trial_P1(stimLength, stimHeight)
                 posLocation = randint(0, stimAmt - 1)
+        PgTools.draw_cursor(screen)
         pg.display.update()
