@@ -8,7 +8,6 @@ import PgTools
 # initialize pygame and screen
 pg.init()
 screen = PgTools.Screen()
-curs_group = pg.sprite.Group()
 
 file = open("Training_Task/parametersP1.dat")
 params = PgTools.get_params(file)
@@ -62,6 +61,7 @@ PgTools.write_ln(
 
 trialNum = 1
 start_trial(stimLength, stimHeight)
+screen.bg.blit(screen.fg, (0, 0))
 
 # game loop
 running = True
@@ -93,7 +93,10 @@ while running:
                     for event in pg.event.get():
                         PgTools.quit_pg(event)
             start_trial(stimLength, stimHeight)
+            screen.bg.blit(screen.fg, (0, 0))
     
+    screen.fg.blit(screen.bg, (0, 0)) 
     x,y = pg.mouse.get_pos()
-    PgTools.set_cursor(screen.fg, x, y)
+    PgTools.draw_cursor(screen.fg, x, y)
     pg.display.update()
+    #pg.display.update(screen.bg)

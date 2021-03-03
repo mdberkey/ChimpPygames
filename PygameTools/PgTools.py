@@ -27,7 +27,6 @@ RED = (255, 0, 0)
 CURSOR_VISIBLE = True
 if("y" in str(params["cursor_hidden"]) or "Y" in str(params["cursor_hidden"])):
     CURSOR_VISIBLE = False
-curs_x, curs_y = 0, 0
     
 # Screen Tools
 class Screen(object):
@@ -68,7 +67,7 @@ def get_params(fileObj):
     if not CURSOR_VISIBLE:         # sets mouse to invisible
         pg.mouse.set_cursor((8,8),(0,0),(0,0,0,0,0,0,0,0),(0,0,0,0,0,0,0,0))
     global cursor_img 
-    cursor_img = pg.image.load("cursor.png").convert_alpha()
+    cursor_img = pg.image.load("reqs/cursor_A.png").convert_alpha()
      
     params = {}
     for line in fileObj:
@@ -108,15 +107,8 @@ def response(screen, accuracy=None, delay=5000):
     pg.event.clear()
     screen.bg.fill(BLACK)
 
-def set_cursor(surface, xCoord, yCoord):
-	global curs_x, curs_y
-	
-	if xCoord == curs_x and yCoord == curs_y:
-		return
-	else:
-		pg.draw.circle(surface, (0,0,0), (curs_x, curs_y), 22)
-		surface.blit(cursor_img, (xCoord - 25, yCoord - 25))
-		curs_x, curs_y = xCoord, yCoord
+def draw_cursor(surface, xCoord, yCoord):
+	surface.blit(cursor_img, (xCoord - 25, yCoord - 25))
 	
 
 def rand_x_coord(length):
