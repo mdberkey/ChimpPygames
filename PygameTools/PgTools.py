@@ -43,9 +43,7 @@ class Screen(object):
         self.bg.fill(col)
 
         if fullscreen:
-            self.fg = pg.display.set_mode(
-                size, (NOFRAME and FULLSCREEN)
-            )  # dynamic objects go in foreground (fg)
+            self.fg = pg.display.set_mode(size, (DOUBLEBUF and HWSURFACE)) # dynamic objects go in foreground (fg)
         else:
             self.fg = pg.display.set_mode(size)
 
@@ -53,9 +51,9 @@ class Screen(object):
         """
         Blit background to screen and update display.
         """
-        self.fg.blit(self.bg, (0, 0))
+        self.fg.blit(self.bg.convert(), (0, 0))
         pg.display.update()
-        self.fg.blit(self.bg, (0, 0))
+        
 
 
 # Game Tools
@@ -116,14 +114,14 @@ def set_cursor(screen, start_x=0, start_y=0, mid=False):
     """
     if not mid:
         pg.mouse.set_pos(start_x, start_y)
-    screen.bg.blit(screen.fg, (0, 0)) 
+    screen.bg.blit(screen.fg.convert(), (0, 0)) 
 
 def draw_cursor(screen):
     """
     updates cursor to new position
     :param screen: screen obj to draw cursor upon
     """
-    screen.fg.blit(screen.bg, (0, 0))
+    # screen.fg.blit(screen.bg.convert(), (0, 0))
     xCoord, yCoord = pg.mouse.get_pos()
     screen.fg.blit(cursor_img, (xCoord - 25, yCoord - 25))
 
@@ -383,7 +381,7 @@ def sound(correct=None):
 def end_screen(screen):
     screen.refresh()
     font = pg.font.SysFont("piday", 50)
-    text = font.render('Trials Completed. Press \'esc\' or \'q\' to end expirement.', True, BLACK, RED)
+    text = font.render('Trials Completed. Press \'esc\' or \'q\' to end expirement.', True, BLACK, RED).convert()
     screen.fg.blit(text, (75, SCREEN_SIZE[1] /2))
     pg.display.update()
     

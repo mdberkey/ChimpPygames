@@ -71,9 +71,9 @@ while running:
     for event in pg.event.get():
         PgTools.quit_pg(event)
         if event.type == MOUSEMOTION:
-	    xCoord, yCoord = event.pos       
+            xCoord, yCoord = event.pos
             if stimulus.collidepoint(xCoord, yCoord) and screen.fg.get_at((xCoord, yCoord)) != (0,0,0):
-		PgTools.response(screen, True, passDelay)
+                PgTools.response(screen, True, passDelay)
                 PgTools.write_ln(
                     filename="Training_Task/resultsP1.csv",
                     data=[

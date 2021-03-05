@@ -153,12 +153,12 @@ while running:
         if event.type == MOUSEMOTION:
             xCoord, yCoord = event.pos
             if trialStart:
-                if sampleStim.collidepoint(xCoord, yCoord) and screen.fg.get_at((xCoord, yCoord)) != (0,0,):
+                if sampleStim.collidepoint(xCoord, yCoord):
                     trial_P2(posColor)
                     trialStart = False
                     continue
             else:
-                if stimList[posLocation].collidepoint(xCoord, yCoord) and screen.fg.get_at((xCoord, yCoord)) != (0,0,0):
+                if stimList[posLocation].collidepoint(xCoord, yCoord):
                     PgTools.response(screen, True, passDelay)
                     PgTools.write_ln(
                         filename="Match_To_Sample/results.csv",
