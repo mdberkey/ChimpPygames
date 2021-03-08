@@ -16,7 +16,7 @@ stimulus_length = 150
 stimulus_height = 150
 #
 # y for randomly shaped stimuli, n for rectangular stimuli only
-randomly_shaped_stimuli = y
+randomly_shaped_stimuli = n
 #
 # Amount of time red screen is on after a trial in miliseconds
 passed_inter_trial_interval = 3000

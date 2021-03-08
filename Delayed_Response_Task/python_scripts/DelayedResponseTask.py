@@ -71,12 +71,14 @@ def trial_P1(length, height):
             currentLength = int(currentLength)
             currentHeight += maxHeight / 4
             currentHeight= int(currentHeight)
+    PgTools.set_cursor(screen, start_x=0, start_y=0)
 
 
 def trial_P2():
     """
     Initiates part 2 of a trial, redraws stimuli
     """
+    screen.bg.fill(PgTools.BLACK)
     screen.refresh()
     global stimList
     global trialStart
@@ -104,6 +106,7 @@ def trial_P2():
             currentLength = int(currentLength)
             currentHeight += maxHeight / 4
             currentHeight= int(currentHeight)
+    PgTools.set_cursor(screen, start_x=0, start_y=0)
 
 
 def check_stim(xCoord, yCoord):
@@ -151,7 +154,7 @@ running = True
 while running:
     for event in pg.event.get():
         PgTools.quit_pg(event)
-        if event.type == MOUSEBUTTONDOWN:
+        if event.type == MOUSEMOTION:
             xCoord, yCoord = event.pos
             if trialStart:
                 if stimList[SCSLocation].collidepoint(xCoord, yCoord) and screen.fg.get_at((xCoord, yCoord)) != (0,0,0):
@@ -223,4 +226,5 @@ while running:
             )
             if randShapes:
                 PgTools.rand_shape(screen.fg, (SCSLength, SCSHeight),(stimLength, stimHeight), seed)
+    PgTools.draw_cursor(screen)
     pg.display.update()

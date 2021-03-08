@@ -78,6 +78,7 @@ def trial_P2(posColor):
     :param colorPair: pair of random colors for stimuli base colors
     """
     if not sampleStimVis:
+	screen.bg.fill(PgTools.BLACK)
         screen.refresh()
 
     global stimList
@@ -195,5 +196,5 @@ while running:
                 seed = random.randint(0, 99999)
                 trial_P1(stimLength, stimHeight)
                 posLocation = randint(0, stimAmt - 1)
-        PgTools.draw_cursor(screen)
-        pg.display.update()
+    PgTools.draw_cursor(screen)
+    pg.display.update()

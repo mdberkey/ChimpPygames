@@ -44,7 +44,7 @@ def start_trial(length, height):
     )
     if randShapes:
         PgTools.rand_shape(screen.fg, (xCoord, yCoord), (length, height), randInt)
-    PgTools.set_cursor(screen, mid=True)
+    PgTools.set_cursor(screen, noPos=True)
 
 PgTools.write_ln(
     filename="Training_Task/resultsP2.csv",

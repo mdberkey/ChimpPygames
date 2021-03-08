@@ -37,6 +37,9 @@ def trial(length, height):
     :param height: height of stimuli
     """
     screen.refresh()
+    curs_x = int(PgTools.SCREEN_SIZE[0] / 2)
+    curs_y = int(PgTools.SCREEN_SIZE[1] - 25)
+    #pg.mouse.set_pos(curs_x, curs_y) 
     global stimList
     global oddLength
     global oddHeight
@@ -91,6 +94,7 @@ def trial(length, height):
             currentLength = int(currentLength)
             currentHeight += maxHeight / 4
             currentHeight= int(currentHeight)
+    PgTools.set_cursor(screen, noPos=True) 
 
 def check_stim(xCoord, yCoord):
     for i in range(stimAmt):
@@ -130,9 +134,9 @@ running = True
 while running:
     for event in pg.event.get():
         PgTools.quit_pg(event)
-        if event.type == MOUSEBUTTONDOWN:
+        if event.type == MOUSEMOTION:
             xCoord, yCoord = event.pos
-            if stimList[oddLocation].collidepoint(xCoord, yCoord) and screen.fg.get_at((xCoord, yCoord)) != (0,0,0):
+            if stimList[oddLocation].collidepoint(xCoord, yCoord):
                 PgTools.response(screen, True, passDelay)
                 PgTools.write_ln(
                     filename="Oddity_Testing/results.csv",
@@ -173,4 +177,6 @@ while running:
                 regSeed = randint(0, 99999)
                 oddSeed = randint(0, 99999)
             trial(stimLength, stimHeight)
+            pg.event.clear()
+    PgTools.draw_cursor(screen)
     pg.display.update()

@@ -17,7 +17,7 @@ stimulus_height = 150
 #
 # n -> Sample stimulus disappears after being clicked 
 # y -> Sample stimulus stays visible
-sample_stimulus_visible = n
+sample_stimulus_visible = n  
 #
 # y for randomly shaped stimuli, n for rectangular stimuli only
 randomly_shaped_stimuli = n

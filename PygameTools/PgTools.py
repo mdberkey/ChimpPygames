@@ -41,9 +41,9 @@ class Screen(object):
         self.rect = pg.Rect((0, 0), size)
         self.bg = pg.Surface(size)  # static objects go in background (bg)
         self.bg.fill(col)
-
+        flags = pg.FULLSCREEN
         if fullscreen:
-            self.fg = pg.display.set_mode(size, (DOUBLEBUF and HWSURFACE)) # dynamic objects go in foreground (fg)
+            self.fg = pg.display.set_mode(size, flags) # dynamic objects go in foreground (fg)
         else:
             self.fg = pg.display.set_mode(size)
 
@@ -105,14 +105,16 @@ def response(screen, accuracy=None, delay=5000):
     pg.event.clear()
     screen.bg.fill(BLACK)
 
-def set_cursor(screen, start_x=0, start_y=0, mid=False):
+def set_cursor(screen, start_x=0, start_y=0, noPos=False, mid=False):
     """
     sets screen for cursor support
     :param screen: screen obj to set
     :start_x: x coord of cursor start
     :start_y: y coord of cursor start
     """
-    if not mid:
+    if not noPos:
+        if mid:
+            start_x, start_y  = int(SCREEN_SIZE[0] / 2), int(SCREEN_SIZE[1] / 2)
         pg.mouse.set_pos(start_x, start_y)
     screen.bg.blit(screen.fg.convert(), (0, 0)) 
 
@@ -121,7 +123,7 @@ def draw_cursor(screen):
     updates cursor to new position
     :param screen: screen obj to draw cursor upon
     """
-    # screen.fg.blit(screen.bg.convert(), (0, 0))
+    screen.fg.blit(screen.bg.convert(), (0, 0))
     xCoord, yCoord = pg.mouse.get_pos()
     screen.fg.blit(cursor_img, (xCoord - 25, yCoord - 25))
 
