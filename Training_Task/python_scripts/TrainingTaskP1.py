@@ -52,9 +52,7 @@ def start_trial(length, height):
     if randShapes:
         PgTools.rand_shape(screen.fg, (x_mid, y_mid), (length, height))  
     
-    curs_x = int(PgTools.SCREEN_SIZE[0] / 2)
-    curs_y = int(PgTools.SCREEN_SIZE[1] * 0.85)
-    PgTools.set_cursor(screen, curs_x, curs_y) 
+    PgTools.set_cursor(screen, randCorner=True)
 
 
 PgTools.write_ln(
@@ -63,7 +61,9 @@ PgTools.write_ln(
 )
 
 trialNum = 1
+passedTrials = 1
 start_trial(stimLength, stimHeight)
+on_bg = True
 
 # game loop
 running = True
@@ -72,8 +72,9 @@ while running:
         PgTools.quit_pg(event)
         if event.type == MOUSEMOTION:
             xCoord, yCoord = event.pos
-            if stimulus.collidepoint(xCoord, yCoord) and screen.fg.get_at((xCoord, yCoord)) != (0,0,0):
+            if stimulus.collidepoint(xCoord, yCoord) and not on_bg:
                 PgTools.response(screen, True, passDelay)
+                on_bg = True
                 PgTools.write_ln(
                     filename="Training_Task/resultsP1.csv",
                     data=[
@@ -84,18 +85,19 @@ while running:
                         "passed",
                     ],
                 )
+                passedTrials += 1
             else:
                 continue
             trialNum += 1
             stimLength -= lengthDecrease
             stimHeight -= heightDecrease
-            if trialNum == trialsAmt:
+            if passedTrials == trialsAmt:
                 PgTools.end_screen(screen)
                 while True:
                     for event in pg.event.get():
                         PgTools.quit_pg(event)
             start_trial(stimLength, stimHeight)
     
-    PgTools.draw_cursor(screen)
+    on_bg = PgTools.draw_cursor(screen)
     pg.display.update()
 

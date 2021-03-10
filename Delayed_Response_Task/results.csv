@@ -1,6 +1,0 @@
-subject_name, number_of_possible_locations, trial, SCS, SCS_location, RI, accuracy, "D:03/08/21 T:13:03:55"
-null, 3, 1, "(203, 13, 77)", 5, 3000, passed, "D:03/08/21 T:13:04:08"
-subject_name, number_of_possible_locations, trial, SCS, SCS_location, RI, accuracy, "D:03/08/21 T:13:21:24"
-subject_name, number_of_possible_locations, trial, SCS, SCS_location, RI, accuracy, "D:03/08/21 T:13:25:24"
-null, 3, 1, "(197, 96, 203)", 7, 1000, passed, "D:03/08/21 T:13:25:36"
-null, 3, 2, "(229, 238, 8)", 7, 3000, failed, "D:03/08/21 T:13:25:44"

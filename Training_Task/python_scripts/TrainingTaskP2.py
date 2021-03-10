@@ -34,6 +34,7 @@ def start_trial(length, height):
     :param height: width of new stimulus
     """
     screen.refresh()
+
     global stimulus
     xCoord = PgTools.rand_x_coord(stimLength)
     yCoord = PgTools.rand_y_coord(stimHeight)
@@ -46,6 +47,7 @@ def start_trial(length, height):
         PgTools.rand_shape(screen.fg, (xCoord, yCoord), (length, height), randInt)
     PgTools.set_cursor(screen, noPos=True)
 
+
 PgTools.write_ln(
     filename="Training_Task/resultsP2.csv",
     data=["subject_name", "trial", "input_coordinates", "accuracy",],
@@ -55,6 +57,7 @@ trialNum = 1
 passedTrials = 0
 randInt = random.randint(0, 99999) # seed
 start_trial(stimLength, stimHeight)
+on_bg = True
 
 # game loop
 running = True
@@ -63,8 +66,9 @@ while running:
         PgTools.quit_pg(event)
         if event.type == MOUSEMOTION:
             xCoord, yCoord = event.pos
-            if stimulus.collidepoint(xCoord, yCoord) and screen.fg.get_at((xCoord, yCoord)) != (0,0,0):
+            if stimulus.collidepoint(xCoord, yCoord) and not on_bg:
                 PgTools.response(screen, True, passDelay)
+                on_bg = True
                 PgTools.write_ln(
                     filename="Training_Task/resultsP2.csv",
                     data=[subjectName, trialNum, ("\"" + str(xCoord) + ", " + str(yCoord) + "\""), "passed",],
@@ -79,5 +83,6 @@ while running:
                     for event in pg.event.get():
                         PgTools.quit_pg(event)
             start_trial(stimLength, stimHeight)
-    PgTools.draw_cursor(screen)
+    
+    on_bg = PgTools.draw_cursor(screen)
     pg.display.update()

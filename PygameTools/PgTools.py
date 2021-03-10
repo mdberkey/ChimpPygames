@@ -105,7 +105,7 @@ def response(screen, accuracy=None, delay=5000):
     pg.event.clear()
     screen.bg.fill(BLACK)
 
-def set_cursor(screen, start_x=0, start_y=0, noPos=False, mid=False):
+def set_cursor(screen, start_x=0, start_y=0, noPos=False, mid=False, randCorner=False):
     """
     sets screen for cursor support
     :param screen: screen obj to set
@@ -115,6 +115,18 @@ def set_cursor(screen, start_x=0, start_y=0, noPos=False, mid=False):
     if not noPos:
         if mid:
             start_x, start_y  = int(SCREEN_SIZE[0] / 2), int(SCREEN_SIZE[1] / 2)
+        elif randCorner:
+            corner = random.randint(0, 3)
+            if corner == 0:
+                start_x, start_y = 30, 30
+            elif corner == 1:
+                start_x, start_y = (SCREEN_SIZE[0] - 30), 30
+            elif corner == 2:
+                start_x, start_y = 30, (SCREEN_SIZE[1] - 30)
+            else:
+                start_x, start_y = (SCREEN_SIZE[0] - 30), (SCREEN_SIZE[1] - 30)
+        else:
+            noPos = True
         pg.mouse.set_pos(start_x, start_y)
     screen.bg.blit(screen.fg.convert(), (0, 0)) 
 
@@ -122,10 +134,16 @@ def draw_cursor(screen):
     """
     updates cursor to new position
     :param screen: screen obj to draw cursor upon
+    :return: True if cursor is on background, false otherwise
     """
     screen.fg.blit(screen.bg.convert(), (0, 0))
     xCoord, yCoord = pg.mouse.get_pos()
+    fgColor = screen.fg.get_at((xCoord, yCoord))
+    on_bg = False
+    if fgColor == (0, 0, 0):
+        on_bg = True
     screen.fg.blit(cursor_img, (xCoord - 25, yCoord - 25))
+    return on_bg
 
 def rand_x_coord(length):
     """
