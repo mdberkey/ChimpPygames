@@ -71,7 +71,7 @@ def trial_P1(length, height):
             currentLength = int(currentLength)
             currentHeight += maxHeight / 4
             currentHeight= int(currentHeight)
-    PgTools.set_cursor(screen, start_x=0, start_y=0)
+    PgTools.set_cursor(screen, randCorner=True)
 
 
 def trial_P2():
@@ -106,12 +106,12 @@ def trial_P2():
             currentLength = int(currentLength)
             currentHeight += maxHeight / 4
             currentHeight= int(currentHeight)
-    PgTools.set_cursor(screen, start_x=0, start_y=0)
+    PgTools.set_cursor(screen, randCorner=True)
 
 
 def check_stim(xCoord, yCoord):
     for i in range(stimAmt):
-        if i != SCSLocation and stimList[i].collidepoint(xCoord, yCoord) and screen.fg.get_at((xCoord, yCoord)) != (0,0,0):
+        if i != SCSLocation and stimList[i].collidepoint(xCoord, yCoord):
             return True
 
 
@@ -147,7 +147,7 @@ blinking = True
 seed = random.randint(0, 99999)
 
 trial_P1(stimLength, stimHeight)
-
+on_bg = True
 
 # game loop
 running = True
@@ -157,19 +157,21 @@ while running:
         if event.type == MOUSEMOTION:
             xCoord, yCoord = event.pos
             if trialStart:
-                if stimList[SCSLocation].collidepoint(xCoord, yCoord) and screen.fg.get_at((xCoord, yCoord)) != (0,0,0):
+                if stimList[SCSLocation].collidepoint(xCoord, yCoord) and not on_bg:
                     screen.refresh()
                     pg.event.get()
                     pg.time.delay(randRI)
                     pg.event.clear()
                     blinking = False
                     trial_P2()
+                    on_bg = True
                     pg.display.update()
                     trialStart = False
                     continue
             else:
-                if stimList[SCSLocation].collidepoint(xCoord, yCoord) and screen.fg.get_at((xCoord, yCoord)) != (0,0,0):
+                if stimList[SCSLocation].collidepoint(xCoord, yCoord) and not on_bg:
                     PgTools.response(screen, True, passDelay)
+                    on_bg = True
                     PgTools.write_ln(
                         filename="Delayed_Response_Task/results.csv",
                         data=[
@@ -182,8 +184,9 @@ while running:
                             "passed",
                         ],
                     )
-                elif check_stim(xCoord, yCoord):
+                elif check_stim(xCoord, yCoord) and not on_bg:
                     PgTools.response(screen, False, failDelay)
+                    on_bg = True
                     PgTools.write_ln(
                         filename="Delayed_Response_Task/results.csv",
                         data=[
@@ -197,7 +200,6 @@ while running:
                         ],
                     )
                 else:
-                    pg.event.clear()
                     continue
                 trialNum += 1
                 if trialNum == trialsAmt:
@@ -212,6 +214,7 @@ while running:
                 blinking = True
                 seed = random.randint(0, 99999)
                 trial_P1(stimLength, stimHeight)
+                #pg.event.clear()
     currentTime = pg.time.get_ticks()
     if blinking:
         if currentTime >= changeTime:
@@ -226,5 +229,5 @@ while running:
             )
             if randShapes:
                 PgTools.rand_shape(screen.fg, (SCSLength, SCSHeight),(stimLength, stimHeight), seed)
-    PgTools.draw_cursor(screen)
+    on_bg = PgTools.draw_cursor(screen)
     pg.display.update()

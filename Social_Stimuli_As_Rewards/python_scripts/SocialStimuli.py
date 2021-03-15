@@ -38,6 +38,7 @@ def start_trial(radius):
         ),
         radius,
     )
+    PgTools.set_cursor(screen, randCorner=True)
 
 
 PgTools.write_ln(
@@ -57,15 +58,17 @@ else:
 # video = video.margin(top=int((PgTools.SCREEN_SIZE[1]-video.h)/2), bottom=int((PgTools.SCREEN_SIZE[1]-video.h)/2), left=int((PgTools.SCREEN_SIZE[0]-video.w)/2), right=int((PgTools.SCREEN_SIZE[0]-video.w)/2))
 trialNum = 1
 start_trial(stimRadius)
+on_bg = True
 
 # game loop
 running = True
 while running:
     for event in pg.event.get():
         PgTools.quit_pg(event)
-        if event.type == MOUSEBUTTONDOWN:
+        if event.type == MOUSEMOTION:
             xCoord, yCoord = event.pos
-            if stimulus.collidepoint(xCoord, yCoord):
+            if stimulus.collidepoint(xCoord, yCoord) and not on_bg:
+                screen.bg.fill(PgTools.BLACK)
                 screen.refresh()
                 if(file.endswith((".mp4", ".mov"))):
                     video = VideoFileClip(os.path.join(path, file))
@@ -75,11 +78,13 @@ while running:
                     # video = video.margin(top=marginH, bottom=marginH, left=marginW, right=marginW)
                     video.preview(fullscreen=True)
                     screen = PgTools.Screen()
+                    on_bg = True
                 else:
                     image = pg.image.load(os.path.join(path, file))
                     screen.fg.blit(image, (int((PgTools.SCREEN_SIZE[0] - image.get_width()) / 2), int((PgTools.SCREEN_SIZE[1] - image.get_height()) / 2)))
                     pg.display.update()
                     pg.time.delay(stimTime)
+                    on_bg = True
                 file = random.choice(os.listdir(path))
                 pg.event.clear()
                 PgTools.write_ln(
@@ -102,4 +107,5 @@ while running:
                     for event in pg.event.get():
                             PgTools.quit_pg(event)
             start_trial(stimRadius)
+    on_bg = PgTools.draw_cursor(screen)
     pg.display.update()

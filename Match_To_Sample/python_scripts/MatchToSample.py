@@ -78,7 +78,7 @@ def trial_P2(posColor):
     :param colorPair: pair of random colors for stimuli base colors
     """
     if not sampleStimVis:
-	screen.bg.fill(PgTools.BLACK)
+        screen.bg.fill(PgTools.BLACK)
         screen.refresh()
 
     global stimList
@@ -121,7 +121,7 @@ def trial_P2(posColor):
 
 def check_stim(xCoord, yCoord):
     for i in range(stimAmt):
-        if i != posLocation and stimList[i].collidepoint(xCoord, yCoord) and screen.fg.get_at((xCoord, yCoord)) != (0,0,0):
+        if i != posLocation and stimList[i].collidepoint(xCoord, yCoord):
             return True
 
 
@@ -145,6 +145,7 @@ stimList = []
 seed = random.randint(0, 99999)
 
 trial_P1(stimLength, stimHeight)
+on_bg = True
 
 # game loop
 running = True
@@ -154,13 +155,15 @@ while running:
         if event.type == MOUSEMOTION:
             xCoord, yCoord = event.pos
             if trialStart:
-                if sampleStim.collidepoint(xCoord, yCoord):
+                if sampleStim.collidepoint(xCoord, yCoord) and not on_bg:
                     trial_P2(posColor)
+                    on_bg = True
                     trialStart = False
                     continue
             else:
-                if stimList[posLocation].collidepoint(xCoord, yCoord):
+                if stimList[posLocation].collidepoint(xCoord, yCoord) and not on_bg:
                     PgTools.response(screen, True, passDelay)
+                    on_bg = True
                     PgTools.write_ln(
                         filename="Match_To_Sample/results.csv",
                         data=[
@@ -170,8 +173,9 @@ while running:
                             "passed",
                         ],
                     )
-                elif check_stim(xCoord, yCoord):
+                elif check_stim(xCoord, yCoord) and not on_bg:
                     PgTools.response(screen, False, failDelay)
+                    on_bg = True
                     PgTools.write_ln(
                         filename="Match_To_Sample/results.csv",
                         data=[
@@ -182,7 +186,6 @@ while running:
                         ],
                     )
                 else:
-                    pg.event.clear()
                     continue
                 trialNum += 1
                 if trialNum == trialsAmt:
@@ -196,5 +199,6 @@ while running:
                 seed = random.randint(0, 99999)
                 trial_P1(stimLength, stimHeight)
                 posLocation = randint(0, stimAmt - 1)
-    PgTools.draw_cursor(screen)
+                pg.event.clear()
+    on_bg = PgTools.draw_cursor(screen)
     pg.display.update()

@@ -104,6 +104,7 @@ if randShapes:
     negSeed = randint(0, 99999)
 
 start_trial(stimLength, stimHeight, colorPair)
+on_bg = True
 
 # game loop
 running = True
@@ -112,8 +113,9 @@ while running:
         PgTools.quit_pg(event)
         if event.type == MOUSEMOTION:
             xCoord, yCoord = event.pos
-            if posStim.collidepoint(xCoord, yCoord) and screen.fg.get_at((xCoord, yCoord)) != (0,0,0):
+            if posStim.collidepoint(xCoord, yCoord) and not on_bg:
                 PgTools.response(screen, True, passDelay)
+                on_bg = True
                 PgTools.write_ln(
                     filename="Two_Choice_Discrimination/results.csv",
                     data=[
@@ -128,7 +130,7 @@ while running:
                     ],
                 )
                 passedTrials += 1
-            elif negStim.collidepoint(xCoord, yCoord) and screen.fg.get_at((xCoord, yCoord)) != (0,0,0):
+            elif negStim.collidepoint(xCoord, yCoord) and not on_bg:
                 PgTools.response(screen, False, failDelay)
                 PgTools.write_ln(
                     filename="Two_Choice_Discrimination/results.csv",
@@ -163,5 +165,5 @@ while running:
                     for event in pg.event.get():
                         PgTools.quit_pg(event)
             start_trial(stimLength, stimHeight, colorPair)
-    PgTools.draw_cursor(screen)
+    on_bg = PgTools.draw_cursor(screen)
     pg.display.update()

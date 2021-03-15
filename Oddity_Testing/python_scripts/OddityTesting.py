@@ -37,9 +37,6 @@ def trial(length, height):
     :param height: height of stimuli
     """
     screen.refresh()
-    curs_x = int(PgTools.SCREEN_SIZE[0] / 2)
-    curs_y = int(PgTools.SCREEN_SIZE[1] - 25)
-    #pg.mouse.set_pos(curs_x, curs_y) 
     global stimList
     global oddLength
     global oddHeight
@@ -94,11 +91,11 @@ def trial(length, height):
             currentLength = int(currentLength)
             currentHeight += maxHeight / 4
             currentHeight= int(currentHeight)
-    PgTools.set_cursor(screen, noPos=True) 
+    PgTools.set_cursor(screen, randCorner=True) 
 
 def check_stim(xCoord, yCoord):
     for i in range(stimAmt):
-        if i != oddLocation and stimList[i].collidepoint(xCoord, yCoord) and screen.fg.get_at((xCoord, yCoord)) != (0,0,0):
+        if i != oddLocation and stimList[i].collidepoint(xCoord, yCoord):
             return True
 
 PgTools.write_ln(
@@ -128,6 +125,7 @@ if randShapes:
     oddSeed = randint(0, 99999)
 
 trial(stimLength, stimHeight)
+on_bg = True
 
 # game loop
 running = True
@@ -136,8 +134,9 @@ while running:
         PgTools.quit_pg(event)
         if event.type == MOUSEMOTION:
             xCoord, yCoord = event.pos
-            if stimList[oddLocation].collidepoint(xCoord, yCoord):
+            if stimList[oddLocation].collidepoint(xCoord, yCoord) and not on_bg:
                 PgTools.response(screen, True, passDelay)
+                on_bg = True
                 PgTools.write_ln(
                     filename="Oddity_Testing/results.csv",
                     data=[
@@ -147,8 +146,9 @@ while running:
                         "passed",
                     ],
                 )
-            elif check_stim(xCoord, yCoord):
+            elif check_stim(xCoord, yCoord) and not on_bg:
                 PgTools.response(screen, False, failDelay)
+                on_bg = True
                 PgTools.write_ln(
                     filename="Oddity_Testing/results.csv",
                     data=[
@@ -159,7 +159,7 @@ while running:
                     ],
                 )
             else:
-                pg.event.clear()
+                #pg.event.clear()
                 continue
             trialNum += 1
             if trialNum == trialsAmt:
@@ -178,5 +178,5 @@ while running:
                 oddSeed = randint(0, 99999)
             trial(stimLength, stimHeight)
             pg.event.clear()
-    PgTools.draw_cursor(screen)
+    on_bg = PgTools.draw_cursor(screen)
     pg.display.update()
