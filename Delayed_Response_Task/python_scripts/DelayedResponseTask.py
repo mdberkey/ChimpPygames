@@ -158,6 +158,7 @@ while running:
             xCoord, yCoord = event.pos
             if trialStart:
                 if stimList[SCSLocation].collidepoint(xCoord, yCoord) and not on_bg:
+                    screen.bg.fill(PgTools.BLACK)
                     screen.refresh()
                     pg.event.get()
                     pg.time.delay(randRI)
@@ -220,14 +221,15 @@ while running:
         if currentTime >= changeTime:
             changeTime = currentTime + delay
             show = not show
+        
         stimList[SCSLocation] = pg.draw.rect(
-            screen.fg, PgTools.BLACK, (SCSLength, SCSHeight, stimLength, stimHeight,),
-        )
+            screen.bg, PgTools.BLACK, (SCSLength, SCSHeight, stimLength, stimHeight)
+            )
         if show:
             stimList[SCSLocation] = pg.draw.rect(
-                screen.fg, color, (SCSLength, SCSHeight, stimLength, stimHeight,),
+                screen.bg, color, (SCSLength, SCSHeight, stimLength, stimHeight,),
             )
             if randShapes:
-                PgTools.rand_shape(screen.fg, (SCSLength, SCSHeight),(stimLength, stimHeight), seed)
+                PgTools.rand_shape(screen.bg, (SCSLength, SCSHeight),(stimLength, stimHeight), seed)
     on_bg = PgTools.draw_cursor(screen)
     pg.display.update()
