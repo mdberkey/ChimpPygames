@@ -2,7 +2,8 @@
 
 sudo apt-get update
 sudo apt-get install python3
-sudo pip install moviepy
+sudo apt-get install ffmpeg
+sudo pip3 install moviepy
 sudo apt-get install qjoypad
 
 chmod +x setup.sh
