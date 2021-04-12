@@ -1,10 +1,11 @@
 import subprocess
 import sys
 import os
+
 sys.path.append(os.path.join("home", "pi", "Desktop", "ChimpPygames"))
 
 """
-Basic work in progress command line UI
+Basic CLI UI
 """
 
 class pcolors:
@@ -43,9 +44,9 @@ wd_dict = {
 
 def main():
     """
-    Main frontend program. Allows user to run all expirements and clear csv files.
+    Main frontend program. Allows user to run all tasks and clear csv files.
     """
-    print(pcolors.HEADER + "Please choose an expirement to run by entering the corresponding abreviation or q to exit program:" + pcolors.ENDC)
+    print(pcolors.HEADER + "Please choose an tasks to run by entering the corresponding abreviation or q to exit program:" + pcolors.ENDC)
     while True:
         print("\ntt1  : Training_Task_1")
         print("tt2  : Training_Task_2")
@@ -55,6 +56,7 @@ def main():
         print("ot   : Oddity_Testing")
         print("drt  : Delayed_Response_Task")
         print("ssar : Social_Stimuli_As_Rewards")
+        print("test : Test cmd")  
         print("ecsv : Empties ALL results.csv files")  
         print("q    : Exits Program\n")
     
@@ -62,6 +64,11 @@ def main():
         if usrInput == "q":
             print(pcolors.WARNING + "Exiting program...")
             exit()
+        elif usrInput == "test":
+            print_params("Training_Task/parametersP1.dat")
+
+            #file = open("Training_Task/parametersP1.dat")
+            #print(loadtxt("Training_Task/parametersP1.dat"))
         elif usrInput == "ecsv":
             msgStr = "ALL results.csv files within ChimpPygames will cleared and any data not stored outside will be lost!"
             
@@ -75,8 +82,9 @@ def main():
         elif not usrInput in cmd_dict:
             print(pcolors.FAIL + "Command invalid: Please enter a valid command." + pcolors.ENDC)
         else:
-            if ynPrompt("Please make sure all of the parameters in parameters.txt in the " 
-                    + wd_dict.get(usrInput) + " folder are set correctly before continuing!"):
+            print_params(str(wd_dict.get(usrInput)) + "/parameters.dat")
+            if ynPrompt("Are all of the parameters above for the " 
+                    + wd_dict.get(usrInput) + " task set correctly?"):
                 print(pcolors.OKGREEN + "Starting " + wd_dict.get(usrInput) + pcolors.ENDC)
                 subprocess.call(['sh', cmd_dict.get(usrInput)], cwd = wd_dict.get(usrInput))
                 print(pcolors.OKBLUE + "Results Recorded. Exited " + wd_dict.get(usrInput) + pcolors.ENDC)
@@ -101,6 +109,14 @@ def ynPrompt(message="", warning=False):
         return True
     else:
         return False
+
+def print_params(filename):
+    with open(filename) as file:
+        for i,row in enumerate(file):
+            if row[0] is "#":
+                print(pcolors.OKBLUE + str(i) + " - " + row.rstrip() + pcolors.ENDC)
+            else:
+                print(pcolors.OKGREEN + str(i) + " - " + row.rstrip() + pcolors.ENDC)
 
 def empty_csv():
     """

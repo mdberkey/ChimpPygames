@@ -401,7 +401,7 @@ def sound(correct=None):
 def end_screen(screen):
     screen.refresh()
     font = pg.font.SysFont("piday", 50)
-    text = font.render('Trials Completed. Press \'esc\' or \'q\' to end expirement.', True, BLACK, RED).convert()
+    text = font.render('Trials Completed. Press \'esc\' or \'q\' to end task.', True, BLACK, RED).convert()
     screen.fg.blit(text, (75, SCREEN_SIZE[1] /2))
     pg.display.update()
     
