@@ -380,7 +380,7 @@ def pellet(num=1):
         """
     for i in range(num):
         os.system(
-         "sudo python3 /home/pi/Desktop/ChimpPygames/PygameTools/PelletFeeder/pellet-K1.py"
+         "python3 /home/pi/Desktop/ChimpPygames/PygameTools/PelletFeeder/pellet-K1.py"
         )
         print("pellet")
 
