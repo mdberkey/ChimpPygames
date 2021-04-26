@@ -60,16 +60,16 @@ def main():
         print("ecsv : Empties ALL results.csv files")  
         print("q    : Exits Program\n")
     
-        usrInput = input(pcolors.OKCYAN + "Enter command: " + pcolors.ENDC)
-        if usrInput == "q":
+        userInput = input(pcolors.OKCYAN + "Enter command: " + pcolors.ENDC)
+        if userInput == "q":
             print(pcolors.WARNING + "Exiting program...")
             exit()
-        elif usrInput == "test":
+        elif userInput == "test":
             print_params("Training_Task/parametersP1.dat")
 
             #file = open("Training_Task/parametersP1.dat")
             #print(loadtxt("Training_Task/parametersP1.dat"))
-        elif usrInput == "ecsv":
+        elif userInput == "ecsv":
             msgStr = "ALL results.csv files within ChimpPygames will cleared and any data not stored outside will be lost!"
             
             if ynPrompt(msgStr, True):
@@ -79,15 +79,15 @@ def main():
             else:
                 print(pcolors.OKBLUE + "Exited prompt." + pcolors.ENDC)
                 continue
-        elif not usrInput in cmd_dict:
+        elif not userInput in cmd_dict:
             print(pcolors.FAIL + "Command invalid: Please enter a valid command." + pcolors.ENDC)
         else:
-            print_params(str(wd_dict.get(usrInput)) + "/parameters.dat")
+            print_params(str(wd_dict.get(userInput)) + "/parameters.dat")
             if ynPrompt("Are all of the parameters above for the " 
-                    + wd_dict.get(usrInput) + " task set correctly?"):
-                print(pcolors.OKGREEN + "Starting " + wd_dict.get(usrInput) + pcolors.ENDC)
-                subprocess.call(['sh', cmd_dict.get(usrInput)], cwd = wd_dict.get(usrInput))
-                print(pcolors.OKBLUE + "Results Recorded. Exited " + wd_dict.get(usrInput) + pcolors.ENDC)
+                    + wd_dict.get(userInput) + " task set correctly?"):
+                print(pcolors.OKGREEN + "Starting " + wd_dict.get(userInput) + pcolors.ENDC)
+                subprocess.call(['sh', cmd_dict.get(userInput)], cwd = wd_dict.get(userInput))
+                print(pcolors.OKBLUE + "Results Recorded. Exited " + wd_dict.get(userInput) + pcolors.ENDC)
             else:
                  print(pcolors.OKBLUE + "Exited prompt." + pcolors.ENDC)
                  continue
@@ -137,5 +137,6 @@ def empty_csv():
     os.chdir('../')
 
 
-main()
+if __name__ == "__main__":
+    main()
 

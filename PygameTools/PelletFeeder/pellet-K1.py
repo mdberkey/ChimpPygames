@@ -16,7 +16,7 @@ import time
 def pellet(num=1):
 	print("Opening the device")
 	h = hid.device()
-	h.open(2567, 200) # USB relay VendorID/ProductID
+	h.open(2567, 200) # USB relay VendorID/ProductID 2567, 200
 
 	# enable non-blocking mode
 	h.set_nonblocking(1)

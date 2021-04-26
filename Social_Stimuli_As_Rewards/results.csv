@@ -1,0 +1,6 @@
+subject_name, trial, stimulus_size, image, image_duration, "D:04/21/21 T:13:49:16"
+null, 1, 400, foo, 5000, "D:04/21/21 T:13:49:28"
+null, 2, 400, foo, 5000, "D:04/21/21 T:13:49:36"
+null, 3, 400, foo, 5000, "D:04/21/21 T:13:49:41"
+null, 4, 400, foo, 5000, "D:04/21/21 T:13:49:47"
+null, 5, 400, foo, 5000, "D:04/21/21 T:13:49:55"
