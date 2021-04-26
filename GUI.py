@@ -1,8 +1,11 @@
 import PySimpleGUI as sg
 import sys
 import os
+import subprocess
 
-sys.path.append(os.path.join("Users", "michaelberkey", "work", "ChimpPygames"))
+
+#sys.path.append(os.path.join("Users", "michaelberkey", "work", "ChimpPygames"))
+sys.path.append(os.path.join("/home", "pi", "Desktop", "ChimpPygames"))
 
 class Task:
     def __init__(self, name, script_loc, params_loc, results_loc):
@@ -37,11 +40,10 @@ class Task:
 
     def start_task(self):
         try:
-            exec(self.script_loc)
+            subprocess.call(['sh', "TrainingTaskP1.sh"], cwd="Training_Task")
         except Exception:
             print("Error in opening python script for task: " + self.name)
             print(Exception)
-
 
 
 class GUI:
