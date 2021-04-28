@@ -1,6 +1,6 @@
 # Alter user-defined parameters here #
 #
-subject_name = null
+subject_name = bob
 #
 number_of_trials = 5
 #

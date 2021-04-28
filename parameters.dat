@@ -1,6 +1,6 @@
 # Alter user-defined parameters here #
 #
-subject_name = null
+subject_name = bob
 #
 number_of_trials = 5
 #
@@ -13,7 +13,7 @@ last_stimulus_length = 50
 last_stimulus_height = 50
 #
 # y for randomly shaped stimuli, n for rectangular stimuli only
-randomly_shaped_stimuli = y
+randomly_shaped_stimuli = n
 #
 # Amount of time red screen is on after a trial in miliseconds #
 passed_inter_trial_interval = 1000
