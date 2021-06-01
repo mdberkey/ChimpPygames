@@ -4,8 +4,8 @@ import os
 import subprocess
 import shutil
 
-sys.path.append(os.path.join("Users", "michaelberkey", "work", "ChimpPygames"))
-#sys.path.append(os.path.join("/home", "pi", "Desktop", "ChimpPygames"))
+#sys.path.append(os.path.join("Users", "michaelberkey", "work", "ChimpPygames"))
+sys.path.append(os.path.join("/home", "pi", "Desktop", "ChimpPygames"))
 
 
 class Task:
@@ -88,8 +88,7 @@ class GUI:
             elif event == "Global Parameters":
                 self.params_menu(global_params, is_task=False)
             elif event == "Export Data":
-                pass
-                pass
+                self.export_data(tasks)
             else:
                 for task in tasks:
                     if event == task.name:
@@ -130,8 +129,14 @@ class GUI:
                 task.set_params(values)
             elif event == "Start Task":
                 task.start_task()
-
         params_window.close()
+
+    def export_data(self, tasks):
+        for task in tasks:
+            if os.path.getsize(task.results_file) == 0:
+                continue
+            else:
+                shutil.copy(task.results_file, os.path.join("/home", "pi", "Desktop", "CPG Exported Data"))
 
 
 if __name__ == "__main__":
