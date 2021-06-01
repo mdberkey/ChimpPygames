@@ -88,6 +88,7 @@ class GUI:
             elif event == "Global Parameters":
                 self.params_menu(global_params, is_task=False)
             elif event == "Export Data":
+                pass
             else:
                 for task in tasks:
                     if event == task.name:
