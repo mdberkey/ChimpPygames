@@ -43,11 +43,8 @@ class Task:
         return True
 
     def start_task(self):
-        #TODO: get better exception handling
-        #try:
         subprocess.call(['sh', self.script_file], cwd=self.folder_name)
-        #except Exception:
-         #   print("Error in opening python script for task: " + self.name)
+        return True
 
 
 class GUI:
@@ -67,14 +64,18 @@ class GUI:
             Task("Oddity Testing", "Oddity_Testing", "OddityTesting.sh"),
             Task("Delayed Response", "Delayed_Response_Task", "DelayedResponseTask.sh")
         ]
+        global_params = Task("Global Parameters", "PygameTools", None, params_file="/globalParameters.dat")
 
-        task_col = [[sg.Button(tasks[i].name)] for i in range(len(tasks))]
-        option_col = [[sg.Button("QUIT")]]
+        task_col = [[sg.Button(tasks[i].name, pad=[5, 5])] for i in range(len(tasks))]
+        option_col = [
+            [sg.Button("Global Parameters", pad=[5, 5])],
+            [sg.Button("Export Data", pad=[5, 5])],
+            [sg.Button("Delete Data", pad=[5, 5])],
+            [sg.Button("QUIT", pad=[5, 5])]
+        ]
 
         layout = [
-            [sg.Column(task_col)],
-            [sg.VSeparator()],
-            [sg.Column(option_col)],
+            [sg.Column(task_col), sg.VSeparator(), sg.Column(option_col)]
         ]
 
         main_window = sg.Window("Marm Pygames", layout, margins=self.size, font="Helvetica 15")
@@ -85,14 +86,15 @@ class GUI:
             if event == "QUIT" or event == sg.WIN_CLOSED:
                 break
             elif event == "Global Parameters":
-                pass
+                self.params_menu(global_params, is_task=False)
+            elif event == "Export Data":
             else:
                 for task in tasks:
                     if event == task.name:
                         self.params_menu(task)
         main_window.close()
 
-    def params_menu(self, task):
+    def params_menu(self, task, is_task=True):
         params = task.get_params()
         params_col = []
         for key, value in params.items():
@@ -105,8 +107,11 @@ class GUI:
 
         params_layout = [
             [sg.Column(params_col)],
-            [sg.Button("Back to Main Menu"), sg.Button("Confirm Parameters"), sg.Button("Start Task")]
+            [sg.Button("Back to Main Menu"), sg.Button("Confirm Parameters")]
         ]
+        if is_task:
+            params_layout[1].append(sg.Button("Start Task"))
+
         params_window = sg.Window(task.name + " Parameters", params_layout, margins=self.size, font="Helvetica 15")
         while True:
             event, values = params_window.read()
