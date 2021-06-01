@@ -5,6 +5,6 @@ screen_width = 1024
 screen_height = 600
 #
 # "y" = cursor is hidden, "n" = cursor is not hidden.
-cursor_hidden = y
+cursor_hidden = n
 #
 # *Do not forget to save the file* #

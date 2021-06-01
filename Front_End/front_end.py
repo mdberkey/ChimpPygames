@@ -132,7 +132,7 @@ def empty_csv():
     os.chdir(wd_dict.get("tt1"))
     f = open("resultsP1.csv", "w+")
     f.close()
-    f = open("resultsP2.csv", "+w")
+    f = open("resultsP2.csv", "w+")
     f.close()
     os.chdir('../')
 

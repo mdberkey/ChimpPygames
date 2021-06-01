@@ -53,14 +53,14 @@ class GUI:
 
     def main_menu(self):
         tasks = [
-            Task("Training 1", "Training_Task", "Training_TaskP1.sh", params_file="/parametersP1.dat",
+            Task("Training 1", "Training_Task", "TrainingTaskP1.sh", params_file="/parametersP1.dat",
                  results_file="/resultsP1.csv"),
-            Task("Training 2", "Training_Task", "Training_TaskP2.sh", params_file="/parametersP2.dat",
+            Task("Training 2", "Training_Task", "TrainingTaskP2.sh", params_file="/parametersP2.dat",
                  results_file="/resultsP2.csv"),
             Task("Two Choice Discrimination", "Two_Choice_Discrimination", "TwoChoiceDiscrim.sh"),
             Task("Social Stimuli as Rewards", "Social_Stimuli_As_Rewards", "SocialStimuli.sh"),
-            Task("Match to Sample", "Match_To_Sample", "MathToSample.sh"),
-            Task("Delayed Match to Sample", "Delayed_Match_To_Sample", "PoopDelayedMatchToSample.sh"),
+            Task("Match to Sample", "Match_To_Sample", "MatchToSample.sh"),
+            Task("Delayed Match to Sample", "Delayed_Match_To_Sample", "DelayedMatchToSample.sh"),
             Task("Oddity Testing", "Oddity_Testing", "OddityTesting.sh"),
             Task("Delayed Response", "Delayed_Response_Task", "DelayedResponseTask.sh")
         ]
@@ -89,6 +89,8 @@ class GUI:
                 self.params_menu(global_params, is_task=False)
             elif event == "Export Data":
                 self.export_data(tasks)
+            elif event == "Delete Data":
+                self.delete_data(tasks)
             else:
                 for task in tasks:
                     if event == task.name:
@@ -136,7 +138,13 @@ class GUI:
             if os.path.getsize(task.results_file) == 0:
                 continue
             else:
-                shutil.copy(task.results_file, os.path.join("/home", "pi", "Desktop", "CPG Exported Data"))
+                shutil.copy(task.results_file, os.path.join("/home", "pi", "Desktop", "CPG Exported Data", task.folder_name + ".csv"))
+    def delete_data(self, tasks):
+        for task in tasks:
+            data = open(task.results_file, "w+")
+            data.close()
+        print("Data Deleted")
+        return True
 
 
 if __name__ == "__main__":
