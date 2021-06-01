@@ -1,6 +1,6 @@
 # Alter user-defined parameters here #
 #
-subject_name = null
+subject_name = mike
 #
 sample/positive_stimulus_name = CS+
 negative_stimulus_name = FS-
@@ -16,13 +16,13 @@ stimulus_length = 150
 stimulus_height = 150
 #
 # Add retention interval lengths here in milliseconds separated by commas.
-# Correct use: "retention_interval_lengths = 5000, 6000, 1500" -> 5 second, 6 second, and 1.5 second intervals
+# Correct use: 5000, 6000, 1500" -> 5 second, 6 second, and 1.5 second intervals
 # *Do not leave a comma on the end!*
 retention_interval_lengths = 5000, 3000, 2000
 #
 # n -> Sample stimulus disappears after being clicked 
 # y -> Sample stimulus stays visible
-sample_stimulus_visible = n
+sample_stimulus_visible = y
 #
 # y for randomly shaped stimuli, n for rectangular stimuli only
 randomly_shaped_stimuli = y

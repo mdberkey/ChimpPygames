@@ -2,15 +2,17 @@ import PySimpleGUI as sg
 import sys
 import os
 import subprocess
+import shutil
 
 sys.path.append(os.path.join("Users", "michaelberkey", "work", "ChimpPygames"))
 #sys.path.append(os.path.join("/home", "pi", "Desktop", "ChimpPygames"))
 
 class Task:
-    def __init__(self, name, params_loc, results_loc):
+    def __init__(self, name, params_loc, results_loc, script_loc):
         self.name = name
         self.params_loc = params_loc
         self.results_loc = results_loc
+        self.script_loc = script_loc
 
     def get_params(self):
         params = {}
@@ -24,8 +26,8 @@ class Task:
 
     def set_params(self, params):
         old_file = open(self.params_loc, "r")
-        new_file = open("parameters.dat", "w")
-
+        shutil.copy(self.params_loc, self.params_loc.split("/")[1])
+        new_file = open(self.params_loc.split("/")[1], "w")
         for line in old_file:
             if line.startswith('#'):
                 new_file.write(line)
@@ -34,6 +36,8 @@ class Task:
                 new_file.write(key_value[0] + "= " + params[key_value[0].strip()] + "\n")
         old_file.close()
         new_file.close()
+        os.remove(self.params_loc)
+        shutil.move(self.params_loc.split("/")[1], self.params_loc)
         return True
 
     def start_task(self):
@@ -50,7 +54,9 @@ class GUI:
 
     def main_menu(self):
         tasks = [
-            Task("Training 1", "Training_Task/parametersP1.dat", "Training_Task/resultsP1.csv"),
+            Task("Training 1", "Training_Task/parametersP1.dat", "Training_Task/resultsP1.csv", "Training_Task/TrainingTask.sh"),
+            Task("Training 2", "Training_Task/parametersP2.dat", "Training_Task/resultsP2.csv", "Training_Task/python_scripts/TrainingTaskP1.sh"),
+            Task("Delayed Match to Sample", "Delayed_Match_To_Sample/parameters.dat", "Delayed_Match_To_Sample/results.csv", "test.sh")
         ]
         task_names = ["Training 1", "Training 2", "Two Choice Discrimination", "Social Stimuli as Rewards", "Match to Sample", "Delayed Match to Sample", "Oddity Testing", "Delayed Response Task"]
         task_files = ["TrainingTaskP1.sh", "TrainingTaskP2.sh", "TwoChoiceDiscrim.sh", "SocialStimuli.sh", "MathToSample.sh", "DelayedMatchToSample.sh", "OddityTesting.sh", "DelayedResponseTask.sh"]
@@ -83,14 +89,16 @@ class GUI:
         params = task.get_params()
         params_col = []
         for key, value in params.items():
-            if value == 'y' or value == 'n':
-                params_col.append([sg.Text(key), sg.Checkbox('', key=key)])
+            if value == 'y':
+                params_col.append([sg.Text(key), sg.Checkbox('', key=key, default=True)])
+            elif value == 'n':
+                params_col.append([sg.Text(key), sg.Checkbox('', key=key, default=False)])
             else:
                 params_col.append([sg.Text(key), sg.InputText(value, key=key)])
 
         params_layout = [
             [sg.Column(params_col)],
-            [sg.Button("Back to Main Menu"), sg.Button("Confirm Parameters"), sg.Button("Start Task", key='st', visible=True)]
+            [sg.Button("Back to Main Menu"), sg.Button("Confirm Parameters"), sg.Button("Start Task")]
         ]
         params_window = sg.Window(task.name + " Parameters", params_layout, margins=self.size)
         while True:
@@ -98,7 +106,7 @@ class GUI:
 
             if event == "Back to Main Menu" or event == sg.WIN_CLOSED:
                 break
-            elif event == "Set Parameters":
+            elif event == "Confirm Parameters":
                 for key, value in values.items():
                     if isinstance(value, bool):
                         if value:
@@ -106,13 +114,11 @@ class GUI:
                         else:
                             values[key] = 'n'
                 task.set_params(values)
-                params_window['st'].update("bruh")
-                #TODO make start task button appear after parameters have been confirmed!
-
             elif event == "Start Task":
                 task.start_task()
 
         params_window.close()
+
 
 if __name__ == "__main__":
     gui = GUI()
