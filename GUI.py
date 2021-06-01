@@ -7,16 +7,18 @@ import shutil
 sys.path.append(os.path.join("Users", "michaelberkey", "work", "ChimpPygames"))
 #sys.path.append(os.path.join("/home", "pi", "Desktop", "ChimpPygames"))
 
+
 class Task:
-    def __init__(self, name, params_loc, results_loc, script_loc):
+    def __init__(self, name, folder_name, script_file, params_file="/parameters.dat", results_file="/results.csv"):
         self.name = name
-        self.params_loc = params_loc
-        self.results_loc = results_loc
-        self.script_loc = script_loc
+        self.folder_name = folder_name
+        self.script_file = script_file
+        self.params_file = folder_name + params_file
+        self.results_file = folder_name + results_file
 
     def get_params(self):
         params = {}
-        fileObj = open(self.params_loc, "r")
+        fileObj = open(self.params_file, "r")
         for line in fileObj:
             key_value = line.split("=")
             if len(key_value) == 2:
@@ -25,9 +27,9 @@ class Task:
         return params
 
     def set_params(self, params):
-        old_file = open(self.params_loc, "r")
-        shutil.copy(self.params_loc, self.params_loc.split("/")[1])
-        new_file = open(self.params_loc.split("/")[1], "w")
+        old_file = open(self.params_file, "r")
+        shutil.copy(self.params_file, self.params_file.split("/")[1])
+        new_file = open(self.params_file.split("/")[1], "w")
         for line in old_file:
             if line.startswith('#'):
                 new_file.write(line)
@@ -36,16 +38,16 @@ class Task:
                 new_file.write(key_value[0] + "= " + params[key_value[0].strip()] + "\n")
         old_file.close()
         new_file.close()
-        os.remove(self.params_loc)
-        shutil.move(self.params_loc.split("/")[1], self.params_loc)
+        os.remove(self.params_file)
+        shutil.move(self.params_file.split("/")[1], self.params_file)
         return True
 
     def start_task(self):
         #TODO: get better exception handling
-        try:
-            subprocess.call(['sh', "TrainingTaskP1.sh"], cwd="Training_Task")
-        except Exception:
-            print("Error in opening python script for task: " + self.name)
+        #try:
+        subprocess.call(['sh', self.script_file], cwd=self.folder_name)
+        #except Exception:
+         #   print("Error in opening python script for task: " + self.name)
 
 
 class GUI:
@@ -54,12 +56,17 @@ class GUI:
 
     def main_menu(self):
         tasks = [
-            Task("Training 1", "Training_Task/parametersP1.dat", "Training_Task/resultsP1.csv", "Training_Task/TrainingTask.sh"),
-            Task("Training 2", "Training_Task/parametersP2.dat", "Training_Task/resultsP2.csv", "Training_Task/python_scripts/TrainingTaskP1.sh"),
-            Task("Delayed Match to Sample", "Delayed_Match_To_Sample/parameters.dat", "Delayed_Match_To_Sample/results.csv", "test.sh")
+            Task("Training 1", "Training_Task", "Training_TaskP1.sh", params_file="/parametersP1.dat",
+                 results_file="/resultsP1.csv"),
+            Task("Training 2", "Training_Task", "Training_TaskP2.sh", params_file="/parametersP2.dat",
+                 results_file="/resultsP2.csv"),
+            Task("Two Choice Discrimination", "Two_Choice_Discrimination", "TwoChoiceDiscrim.sh"),
+            Task("Social Stimuli as Rewards", "Social_Stimuli_As_Rewards", "SocialStimuli.sh"),
+            Task("Match to Sample", "Match_To_Sample", "MathToSample.sh"),
+            Task("Delayed Match to Sample", "Delayed_Match_To_Sample", "PoopDelayedMatchToSample.sh"),
+            Task("Oddity Testing", "Oddity_Testing", "OddityTesting.sh"),
+            Task("Delayed Response", "Delayed_Response_Task", "DelayedResponseTask.sh")
         ]
-        task_names = ["Training 1", "Training 2", "Two Choice Discrimination", "Social Stimuli as Rewards", "Match to Sample", "Delayed Match to Sample", "Oddity Testing", "Delayed Response Task"]
-        task_files = ["TrainingTaskP1.sh", "TrainingTaskP2.sh", "TwoChoiceDiscrim.sh", "SocialStimuli.sh", "MathToSample.sh", "DelayedMatchToSample.sh", "OddityTesting.sh", "DelayedResponseTask.sh"]
 
         task_col = [[sg.Button(tasks[i].name)] for i in range(len(tasks))]
         option_col = [[sg.Button("QUIT")]]
@@ -70,7 +77,7 @@ class GUI:
             [sg.Column(option_col)],
         ]
 
-        main_window = sg.Window("Marm Pygames", layout, margins=self.size)
+        main_window = sg.Window("Marm Pygames", layout, margins=self.size, font="Helvetica 15")
         
         while True:
             event, values = main_window.read()
@@ -100,7 +107,7 @@ class GUI:
             [sg.Column(params_col)],
             [sg.Button("Back to Main Menu"), sg.Button("Confirm Parameters"), sg.Button("Start Task")]
         ]
-        params_window = sg.Window(task.name + " Parameters", params_layout, margins=self.size)
+        params_window = sg.Window(task.name + " Parameters", params_layout, margins=self.size, font="Helvetica 15")
         while True:
             event, values = params_window.read()
 

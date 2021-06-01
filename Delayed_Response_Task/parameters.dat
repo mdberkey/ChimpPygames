@@ -19,7 +19,7 @@ stimulus_length = 150
 stimulus_height = 150
 #
 # Add retention interval lengths here in milliseconds separated by commas.
-# Correct use: "retention_interval_lengths = 5000, 6000, 1500" -> 5 second, 6 second, and 1.5 second intervals
+# Correct use: "5000, 6000, 1500" -> 5 second, 6 second, and 1.5 second intervals
 # *Do not leave a comma on the end!*
 retention_interval_lengths = 1000, 3000, 500, 4000
 #
