@@ -67,7 +67,9 @@ class GUI:
         global_params = Task("Global Parameters", "PygameTools", None, params_file="/globalParameters.dat")
 
         task_col = [[sg.Button(tasks[i].name, pad=[5, 5])] for i in range(len(tasks))]
+        task_col.insert(0, [sg.Text("Tasks", font="Helvetica 15 underline bold")])
         option_col = [
+            [sg.Text("Other", font="Helvetica 15 underline bold")],
             [sg.Button("Global Parameters", pad=[5, 5])],
             [sg.Button("Export Data", pad=[5, 5])],
             [sg.Button("Delete Data", pad=[5, 5])],
@@ -102,20 +104,20 @@ class GUI:
         params_col = []
         for key, value in params.items():
             if value == 'y':
-                params_col.append([sg.Text(key), sg.Checkbox('', key=key, default=True)])
+                params_col.append([sg.Text(key, size=(25, 1)), sg.Checkbox('', key=key, default=True)])
             elif value == 'n':
-                params_col.append([sg.Text(key), sg.Checkbox('', key=key, default=False)])
+                params_col.append([sg.Text(key, size=(25, 1)), sg.Checkbox('', key=key, default=False)])
             else:
-                params_col.append([sg.Text(key), sg.InputText(value, key=key)])
+                params_col.append([sg.Text(key, size=(25, 1)), sg.InputText(value, key=key)])
 
-        params_layout = [
+        layout = [
             [sg.Column(params_col)],
             [sg.Button("Back to Main Menu"), sg.Button("Confirm Parameters")]
         ]
         if is_task:
-            params_layout[1].append(sg.Button("Start Task"))
+            layout[1].append(sg.Button("Start Task"))
 
-        params_window = sg.Window(task.name + " Parameters", params_layout, margins=self.size, font="Helvetica 15")
+        params_window = sg.Window(task.name + " Parameters", layout, margins=self.size, font="Helvetica 15")
         while True:
             event, values = params_window.read()
 
