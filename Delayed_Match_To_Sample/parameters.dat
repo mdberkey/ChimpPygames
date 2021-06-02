@@ -18,7 +18,7 @@ stimulus_height = 150
 # Add retention interval lengths here in milliseconds separated by commas.
 # Correct use: 5000, 6000, 1500" -> 5 second, 6 second, and 1.5 second intervals
 # *Do not leave a comma on the end!*
-retention_interval_lengths = 5000, 3000, 2000
+retention_interval_lengths = 5000,3000,2000
 #
 # n -> Sample stimulus disappears after being clicked 
 # y -> Sample stimulus stays visible

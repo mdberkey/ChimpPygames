@@ -117,7 +117,7 @@ class GUI:
             [sg.Button("Back to Main Menu"), sg.Button("Confirm Parameters")],
         ]
         if is_task:
-            #layout.append([sg.Text("Note: You must \'Confirm Parameters\' before starting task.")])
+            layout.append([sg.Text("Note: You must \'Confirm Parameters\' before starting task.")])
             start_button = sg.Button("Start Task", disabled=True, key="ST")
             layout[1].append(start_button)
         else:
@@ -137,6 +137,12 @@ class GUI:
                             values[key] = 'y'
                         else:
                             values[key] = 'n'
+                    elif key == "retention_interval_lengths":
+                        try:
+                            assert(list(map(int, value.split(","))))
+                        except ValueError:
+                            sg.Popup("Parameter Error: Please seperate multiple variables with a ','", font="Helvetica 15")
+
                 task.set_params(values)
                 try:
                     start_button.update(disabled=False)

@@ -19,9 +19,10 @@ stimulus_length = 150
 stimulus_height = 150
 #
 # Add retention interval lengths here in milliseconds separated by commas.
-# Correct use: "5000, 6000, 1500" -> 5 second, 6 second, and 1.5 second intervals
+# Correct use: "5000,6000,1500" -> 5 second, 6 second, and 1.5 second intervals
+#
 # *Do not leave a comma on the end!*
-retention_interval_lengths = 1000, 3000, 500, 4000
+retention_interval_lengths = 1000,3000,500,4000
 #
 # y for randomly shaped stimuli, n for rectangular stimuli only
 randomly_shaped_stimuli = y
