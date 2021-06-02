@@ -1,10 +1,10 @@
 # Alter global parameters here (parameters that affect every program) #
 #
 # Size of the screen in pixels *Size of ELO Touchscreen is 1280 x 1024 px
-screen_width = 1024
-screen_height = 600
+screen_width = 1440
+screen_height = 878
 #
 # "y" = cursor is hidden, "n" = cursor is not hidden.
-cursor_hidden = n
+cursor_hidden = y
 #
 # *Do not forget to save the file* #

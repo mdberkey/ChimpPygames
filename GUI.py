@@ -115,11 +115,14 @@ class GUI:
         layout = [
             [sg.Column(params_col)],
             [sg.Button("Back to Main Menu"), sg.Button("Confirm Parameters")],
-            [sg.Text("Note: You must \'Confirm Parameters\' before starting task.")]
         ]
         if is_task:
+            layout.append([sg.Text("Note: You must \'Confirm Parameters\' before starting task.")])
             start_button = sg.Button("Start Task", disabled=True, key="ST")
             layout[1].append(start_button)
+        else:
+            layout.insert(0, [sg.Text("Detected screen Size: " + self.get_screen_size())])
+            layout.append([sg.Text("Note: The screen size affects the tasks, not this GUI.")])
 
         params_window = sg.Window(task.name + " Parameters", layout, margins=self.size, font="Helvetica 15")
         while True:
@@ -135,7 +138,10 @@ class GUI:
                         else:
                             values[key] = 'n'
                 task.set_params(values)
-                start_button.update(disabled=False)
+                try:
+                    start_button.update(disabled=False)
+                except UnboundLocalError:
+                    pass
             elif event == "Start Task":
                 task.start_task()
         params_window.close()
@@ -190,6 +196,16 @@ class GUI:
                 break
         window.close()
         return True
+
+    def get_screen_size(self):
+        cmd1 = ['xrandr']
+        cmd2 = ['grep', '*']
+        pipe1 = subprocess.Popen(cmd1, stdout=subprocess.PIPE)
+        pipe2 = subprocess.Popen(cmd2, stdin=pipe1.stdout, stdout=subprocess.PIPE)
+        pipe1.stdout.close()
+        resolution_string, junk = pipe2.communicate()
+        resolution = resolution_string.split()[0]
+        return resolution.decode()
 
 
 if __name__ == "__main__":
