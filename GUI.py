@@ -142,7 +142,7 @@ class GUI:
                     start_button.update(disabled=False)
                 except UnboundLocalError:
                     pass
-            elif event == "Start Task":
+            elif event == "ST":
                 task.start_task()
         params_window.close()
 
@@ -161,7 +161,7 @@ class GUI:
             layout.append([sg.Text("None", pad=[5, 5])])
         else:
             for task in export_tasks:
-                layout.append(sg.Text(task.name, pad=[5, 5]))
+                layout.append([sg.Text(task.name, pad=[5, 5])])
         layout.append([sg.Button("Cancel", pad=[5, 5]), sg.Button("Continue", pad=[5, 5])])
 
         window = sg.Window("Export Data", layout, font="Helvetica 15")
@@ -171,7 +171,7 @@ class GUI:
                 break
             elif event == "Continue":
                 for task in export_tasks:
-                    shutil.copy(task.results_file, os.path.join("/home", "pi", "Desktop", "CPG Exported Data", task.folder_name + ".csv"))
+                    shutil.copy(task.results_file, os.path.join("/home", "pi", "Desktop", "CPG Exported Data", task.name + ".csv"))
                 sg.Popup("Data Exported", font="Helvetica 15")
                 break
         window.close()
@@ -179,9 +179,17 @@ class GUI:
     def delete_data(self, tasks):
         layout = [
             [sg.Text("WARNING", font="Helvetica 15 underline bold", pad=[5, 5], background_color="red")],
-            [sg.Text("This will clear ALL non-exported data. Do you want to continue?", pad=[5, 5])],
-            [sg.Button("Cancel", pad=[5, 5]), sg.Button("Continue", [5, 5])]
+            [sg.Text("This will clear the following non-exported data:", pad=[5, 5])]
         ]
+        
+        for task in tasks:
+            if os.path.getsize(task.results_file) == 0:
+                continue
+            else:
+                layout.append([sg.Text(task.name)])
+        layout.append([sg.Button("Cancel", pad=[5, 5]), sg.Button("Continue", pad=[5, 5])])
+
+
 
         window = sg.Window("Delete Data", layout, font="Helvetica 15")
         while True:
@@ -195,7 +203,6 @@ class GUI:
                 sg.Popup("Data Deleted", font="Helvetica 15")
                 break
         window.close()
-        return True
 
     def get_screen_size(self):
         cmd1 = ['xrandr']
@@ -209,5 +216,5 @@ class GUI:
 
 
 if __name__ == "__main__":
-    gui = GUI()
+    gui = GUI(size=(1, 1))
     gui.main_menu()
