@@ -117,7 +117,7 @@ class GUI:
             [sg.Button("Back to Main Menu"), sg.Button("Confirm Parameters")],
         ]
         if is_task:
-            layout.append([sg.Text("Note: You must \'Confirm Parameters\' before starting task.")])
+            #layout.append([sg.Text("Note: You must \'Confirm Parameters\' before starting task.")])
             start_button = sg.Button("Start Task", disabled=True, key="ST")
             layout[1].append(start_button)
         else:
@@ -187,9 +187,9 @@ class GUI:
                 continue
             else:
                 layout.append([sg.Text(task.name)])
+        if len(layout) == 2:
+            layout.append([sg.Text("None")])
         layout.append([sg.Button("Cancel", pad=[5, 5]), sg.Button("Continue", pad=[5, 5])])
-
-
 
         window = sg.Window("Delete Data", layout, font="Helvetica 15")
         while True:
@@ -218,3 +218,4 @@ class GUI:
 if __name__ == "__main__":
     gui = GUI(size=(1, 1))
     gui.main_menu()
+
