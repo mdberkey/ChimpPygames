@@ -48,8 +48,10 @@ class Task:
 
 
 class GUI:
-    def __init__(self, size=(500, 300)):
+    def __init__(self, size=(500, 300), font="Helvetica 15", header_font="Helvetica 15 underline bold"):
         self.size = size
+        self.font = font
+        self.header_font = header_font
 
     def main_menu(self):
         tasks = [
@@ -66,10 +68,10 @@ class GUI:
         ]
         global_params = Task("Global Parameters", "PygameTools", None, params_file="/globalParameters.dat")
 
-        task_col = [[sg.Button(tasks[i].name, pad=[5, 5])] for i in range(len(tasks))]
-        task_col.insert(0, [sg.Text("Tasks", font="Helvetica 15 underline bold")])
+        task_col = [[sg.Button(task.name, pad=[5, 5])] for task in tasks]
+        task_col.insert(0, [sg.Text("Tasks", font=self.header_font)])
         option_col = [
-            [sg.Text("Other", font="Helvetica 15 underline bold")],
+            [sg.Text("Other", font=self.header_font)],
             [sg.Button("Global Parameters", pad=[5, 5])],
             [sg.Button("Export Data", pad=[5, 5])],
             [sg.Button("Delete Data", pad=[5, 5])],
@@ -82,7 +84,7 @@ class GUI:
             [sg.Text("some-website.com")]
         ]
 
-        main_window = sg.Window("Marm Pygames", layout, margins=self.size, font="Helvetica 15")
+        main_window = sg.Window("Marm Pygames", layout, margins=self.size, font=self.font)
         
         while True:
             event, values = main_window.read()
@@ -124,7 +126,7 @@ class GUI:
             layout.insert(0, [sg.Text("Detected screen Size: " + self.get_screen_size())])
             layout.append([sg.Text("Note: The screen size affects the tasks, not this GUI.")])
 
-        params_window = sg.Window(task.name + " Parameters", layout, margins=self.size, font="Helvetica 15")
+        params_window = sg.Window(task.name + " Parameters", layout, margins=self.size, font=self.font)
         while True:
             event, values = params_window.read()
 
@@ -141,8 +143,12 @@ class GUI:
                         try:
                             assert(list(map(int, value.split(","))))
                         except ValueError:
-                            sg.Popup("Parameter Error: Please seperate multiple variables with a ','", font="Helvetica 15")
-
+                            sg.Popup("Parameter Error: Please separate multiple variables with a ','", font=self.font)
+                    elif "name" not in key:
+                        try:
+                            assert(int(value))
+                        except ValueError:
+                            sg.Popup("Parameter Error: For the non-naming parameters, please input integer numbers only.", font=self.font)
                 task.set_params(values)
                 try:
                     start_button.update(disabled=False)
@@ -161,7 +167,7 @@ class GUI:
                 export_tasks.append(task)
 
         layout = [
-            [sg.Text("Task data to be exported:", font="Helvetica 15 underline bold", pad=[5, 5])]
+            [sg.Text("Task data to be exported:", font=self.header_font, pad=[5, 5])]
         ]
         if not export_tasks:
             layout.append([sg.Text("None", pad=[5, 5])])
@@ -170,7 +176,7 @@ class GUI:
                 layout.append([sg.Text(task.name, pad=[5, 5])])
         layout.append([sg.Button("Cancel", pad=[5, 5]), sg.Button("Continue", pad=[5, 5])])
 
-        window = sg.Window("Export Data", layout, font="Helvetica 15")
+        window = sg.Window("Export Data", layout, font=self.font)
         while True:
             event, values = window.read()
             if event == "Cancel" or event == sg.WIN_CLOSED:
@@ -178,13 +184,13 @@ class GUI:
             elif event == "Continue":
                 for task in export_tasks:
                     shutil.copy(task.results_file, os.path.join("/home", "pi", "Desktop", "CPG Exported Data", task.name + ".csv"))
-                sg.Popup("Data Exported", font="Helvetica 15")
+                sg.Popup("Data Exported", font=self.font)
                 break
         window.close()
 
     def delete_data(self, tasks):
         layout = [
-            [sg.Text("WARNING", font="Helvetica 15 underline bold", pad=[5, 5], background_color="red")],
+            [sg.Text("WARNING", font=self.header_font, pad=[5, 5], background_color="red")],
             [sg.Text("This will clear the following non-exported data:", pad=[5, 5])]
         ]
         
@@ -197,7 +203,7 @@ class GUI:
             layout.append([sg.Text("None")])
         layout.append([sg.Button("Cancel", pad=[5, 5]), sg.Button("Continue", pad=[5, 5])])
 
-        window = sg.Window("Delete Data", layout, font="Helvetica 15")
+        window = sg.Window("Delete Data", layout, font=self.font)
         while True:
             event, values = window.read()
             if event == "Cancel" or event == sg.WIN_CLOSED:
@@ -206,7 +212,7 @@ class GUI:
                 for task in tasks:
                     data = open(task.results_file, "w+")
                     data.close()
-                sg.Popup("Data Deleted", font="Helvetica 15")
+                sg.Popup("Data Deleted", font=self.font)
                 break
         window.close()
 
