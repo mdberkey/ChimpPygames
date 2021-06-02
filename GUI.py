@@ -77,7 +77,9 @@ class GUI:
         ]
 
         layout = [
-            [sg.Column(task_col), sg.VSeparator(), sg.Column(option_col)]
+            [sg.Column(task_col), sg.VSeparator(), sg.Column(option_col)],
+            [sg.Text("For Info/Help: Please refer to the user manual found at:")],
+            [sg.Text("some-website.com")]
         ]
 
         main_window = sg.Window("Marm Pygames", layout, margins=self.size, font="Helvetica 15")
@@ -112,10 +114,12 @@ class GUI:
 
         layout = [
             [sg.Column(params_col)],
-            [sg.Button("Back to Main Menu"), sg.Button("Confirm Parameters")]
+            [sg.Button("Back to Main Menu"), sg.Button("Confirm Parameters")],
+            [sg.Text("Note: You must \'Confirm Parameters\' before starting task.")]
         ]
         if is_task:
-            layout[1].append(sg.Button("Start Task"))
+            start_button = sg.Button("Start Task", disabled=True, key="ST")
+            layout[1].append(start_button)
 
         params_window = sg.Window(task.name + " Parameters", layout, margins=self.size, font="Helvetica 15")
         while True:
@@ -131,21 +135,60 @@ class GUI:
                         else:
                             values[key] = 'n'
                 task.set_params(values)
+                start_button.update(disabled=False)
             elif event == "Start Task":
                 task.start_task()
         params_window.close()
 
     def export_data(self, tasks):
+        export_tasks = []
         for task in tasks:
             if os.path.getsize(task.results_file) == 0:
                 continue
             else:
-                shutil.copy(task.results_file, os.path.join("/home", "pi", "Desktop", "CPG Exported Data", task.folder_name + ".csv"))
+                export_tasks.append(task)
+
+        layout = [
+            [sg.Text("Task data to be exported:", font="Helvetica 15 underline bold", pad=[5, 5])]
+        ]
+        if not export_tasks:
+            layout.append([sg.Text("None", pad=[5, 5])])
+        else:
+            for task in export_tasks:
+                layout.append(sg.Text(task.name, pad=[5, 5]))
+        layout.append([sg.Button("Cancel", pad=[5, 5]), sg.Button("Continue", pad=[5, 5])])
+
+        window = sg.Window("Export Data", layout, font="Helvetica 15")
+        while True:
+            event, values = window.read()
+            if event == "Cancel" or event == sg.WIN_CLOSED:
+                break
+            elif event == "Continue":
+                for task in export_tasks:
+                    shutil.copy(task.results_file, os.path.join("/home", "pi", "Desktop", "CPG Exported Data", task.folder_name + ".csv"))
+                sg.Popup("Data Exported", font="Helvetica 15")
+                break
+        window.close()
+
     def delete_data(self, tasks):
-        for task in tasks:
-            data = open(task.results_file, "w+")
-            data.close()
-        print("Data Deleted")
+        layout = [
+            [sg.Text("WARNING", font="Helvetica 15 underline bold", pad=[5, 5], background_color="red")],
+            [sg.Text("This will clear ALL non-exported data. Do you want to continue?", pad=[5, 5])],
+            [sg.Button("Cancel", pad=[5, 5]), sg.Button("Continue", [5, 5])]
+        ]
+
+        window = sg.Window("Delete Data", layout, font="Helvetica 15")
+        while True:
+            event, values = window.read()
+            if event == "Cancel" or event == sg.WIN_CLOSED:
+                break
+            elif event == "Continue":
+                for task in tasks:
+                    data = open(task.results_file, "w+")
+                    data.close()
+                sg.Popup("Data Deleted", font="Helvetica 15")
+                break
+        window.close()
         return True
 
 
