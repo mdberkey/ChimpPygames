@@ -12,8 +12,8 @@ number_of_stimuli = 9
 #
 # Size of stimuli boxes in pixels *MAX IS 350 x 350 px due to screen size* #
 # Recommended size: 150 x 150 px
-stimulus_length = 150
-stimulus_height = 150
+stimulus_length = 100
+stimulus_height = 100
 #
 # y for randomly shaped stimuli, n for rectangular stimuli only
 randomly_shaped_stimuli = y

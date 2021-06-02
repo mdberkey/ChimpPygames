@@ -8,12 +8,12 @@ negative_stimulus_name = FS-
 number_of_trials = 10
 #
 # *Comparison choices must be between (2-4)*
-number_of_comparison_stimuli = 3
+number_of_comparison_stimuli = 4
 #
 # Size of stimuli boxes in pixels *MAX IS 350 x 350 px due to screen size* #
 # Recommended size: 150 x 150 px
-stimulus_length = 150
-stimulus_height = 150
+stimulus_length = 125
+stimulus_height = 125
 #
 # n -> Sample stimulus disappears after being clicked 
 # y -> Sample stimulus stays visible

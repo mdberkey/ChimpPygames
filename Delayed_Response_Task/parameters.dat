@@ -15,8 +15,8 @@ number_of_possible_SCS_locations = 3
 #
 # Size of stimuli boxes in pixels *MAX IS 200 x 200 px due to screen size* #
 # Recommended size: 100 x 100 px
-stimulus_length = 150
-stimulus_height = 150
+stimulus_length = 100
+stimulus_height = 100
 #
 # Add retention interval lengths here in milliseconds separated by commas.
 # Correct use: "5000,6000,1500" -> 5 second, 6 second, and 1.5 second intervals
