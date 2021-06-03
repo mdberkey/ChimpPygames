@@ -152,8 +152,11 @@ running = True
 while running:
     for event in pg.event.get():
         PgTools.quit_pg(event)
-        if event.type == MOUSEMOTION:
+        if event.type == PgTools.input_mode:
             xCoord, yCoord = event.pos
+            if PgTools.touchscreen:
+                if screen.fg.get_at((xCoord, yCoord)) != (0, 0, 0):
+                    on_bg = False
             if trialStart:
                 if sampleStim.collidepoint(xCoord, yCoord) and not on_bg:
                     trial_P2(posColor)
