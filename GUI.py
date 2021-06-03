@@ -3,7 +3,10 @@ import sys
 import os
 import subprocess
 import shutil
-import pandas as pd
+try:
+    from pandas import read_csv
+except ModuleNotFoundError:
+    print("Error: Pandas is not installed so \'Quick Data View\' will not function.")
 
 #sys.path.append(os.path.join("Users", "michaelberkey", "work", "ChimpPygames"))
 sys.path.append(os.path.join("/home", "pi", "Desktop", "ChimpPygames"))
@@ -49,7 +52,7 @@ class Task:
 
     def get_data(self):
         try:
-            data_frame = pd.read_csv(self.results_file, sep=',', engine='python', header=None)
+            data_frame = read_csv(self.results_file, sep=',', engine='python', header=None)
             header_list = data_frame.iloc[0].tolist()
             data_list = data_frame[1:].values.tolist()
         except:
@@ -86,7 +89,7 @@ class GUI:
             [sg.Text("Other", font=self.header_font)],
             [sg.Button("Global Parameters", pad=self.pad)],
             [sg.Button("Export Data", pad=self.pad)],
-            [sg.Button("Quick View Data", pad=self.pad)],
+            #[sg.Button("Quick View Data", pad=self.pad)],
             [sg.Button("Delete Data", pad=self.pad)],
             [sg.Button("QUIT", pad=self.pad)]
         ]
@@ -254,10 +257,11 @@ class GUI:
                 for task in tasks:
                     if event == task.name:
                         headings, data = task.get_data()
+                        print(headings, data)
                         data_layout = [
                             [sg.Table(values=data, headings=headings, display_row_numbers=True, num_rows=min(25, len(data)))]
                         ]
-                        window = sg.Window(task.name + "Results", data_layout, font=self.font)
+                        window = sg.Window(task.name + "Results", data_layout, font=self.font, grab_anywhere=False)
                         while True:
                             event, values = window.read()
                             if event == sg.WIN_CLOSED:
@@ -275,7 +279,6 @@ class GUI:
         resolution_string, junk = pipe2.communicate()
         resolution = resolution_string.split()[0]
         return resolution.decode()
-
 
 
 if __name__ == "__main__":
