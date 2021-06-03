@@ -46,12 +46,24 @@ class Task:
         subprocess.call(['sh', self.script_file], cwd=self.folder_name)
         return True
 
+    def get_data(self):
+        results = open(self.results_file, "r")
+        data_list = []
+        for line in results:
+            data_list.append(line)
+        results.close()
+        headings = data_list.pop(0)
+        data_list.remove(0)
+        return headings, data_list
+
+
 
 class GUI:
-    def __init__(self, size=(500, 300), font="Helvetica 15", header_font="Helvetica 15 underline bold"):
+    def __init__(self, size=(500, 300), font="Helvetica 15", header_font="Helvetica 15 underline bold", pad=[5, 5]):
         self.size = size
         self.font = font
         self.header_font = header_font
+        self.pad = pad
 
     def main_menu(self):
         tasks = [
@@ -68,14 +80,15 @@ class GUI:
         ]
         global_params = Task("Global Parameters", "PygameTools", None, params_file="/globalParameters.dat")
 
-        task_col = [[sg.Button(task.name, pad=[5, 5])] for task in tasks]
+        task_col = [[sg.Button(task.name, pad=self.pad)] for task in tasks]
         task_col.insert(0, [sg.Text("Tasks", font=self.header_font)])
         option_col = [
             [sg.Text("Other", font=self.header_font)],
-            [sg.Button("Global Parameters", pad=[5, 5])],
-            [sg.Button("Export Data", pad=[5, 5])],
-            [sg.Button("Delete Data", pad=[5, 5])],
-            [sg.Button("QUIT", pad=[5, 5])]
+            [sg.Button("Global Parameters", pad=self.pad)],
+            [sg.Button("Export Data", pad=self.pad)],
+            [sg.Button("Quick View Data", pad=self.pad)],
+            [sg.Button("Delete Data", pad=self.pad)],
+            [sg.Button("QUIT", pad=self.pad)]
         ]
 
         layout = [
@@ -85,7 +98,7 @@ class GUI:
         ]
 
         main_window = sg.Window("Marm Pygames", layout, margins=self.size, font=self.font)
-        
+
         while True:
             event, values = main_window.read()
 
@@ -97,6 +110,8 @@ class GUI:
                 self.export_data(tasks)
             elif event == "Delete Data":
                 self.delete_data(tasks)
+            elif event == "Quick View Data":
+                self.quick_view_data(tasks)
             else:
                 for task in tasks:
                     if event == task.name:
@@ -155,7 +170,8 @@ class GUI:
                 except UnboundLocalError:
                     pass
             elif event == "ST":
-                task.start_task()
+                if task.start_task():
+                    sg.Popup("Task Completed.", font=self.font)
         params_window.close()
 
     def export_data(self, tasks):
@@ -167,14 +183,14 @@ class GUI:
                 export_tasks.append(task)
 
         layout = [
-            [sg.Text("Task data to be exported:", font=self.header_font, pad=[5, 5])]
+            [sg.Text("Task data to be exported:", font=self.header_font, pad=self.pad)]
         ]
         if not export_tasks:
-            layout.append([sg.Text("None", pad=[5, 5])])
+            layout.append([sg.Text("None", pad=self.pad)])
         else:
             for task in export_tasks:
-                layout.append([sg.Text(task.name, pad=[5, 5])])
-        layout.append([sg.Button("Cancel", pad=[5, 5]), sg.Button("Continue", pad=[5, 5])])
+                layout.append([sg.Text(task.name, pad=self.pad)])
+        layout.append([sg.Button("Cancel", pad=self.pad), sg.Button("Continue", pad=self.pad)])
 
         window = sg.Window("Export Data", layout, font=self.font)
         while True:
@@ -190,10 +206,10 @@ class GUI:
 
     def delete_data(self, tasks):
         layout = [
-            [sg.Text("WARNING", font=self.header_font, pad=[5, 5], background_color="red")],
-            [sg.Text("This will clear the following non-exported data:", pad=[5, 5])]
+            [sg.Text("WARNING", font=self.header_font, pad=self.pad, background_color="red")],
+            [sg.Text("This will delete the following non-exported data:", font=self.header_font, pad=self.pad)]
         ]
-        
+
         for task in tasks:
             if os.path.getsize(task.results_file) == 0:
                 continue
@@ -201,7 +217,7 @@ class GUI:
                 layout.append([sg.Text(task.name)])
         if len(layout) == 2:
             layout.append([sg.Text("None")])
-        layout.append([sg.Button("Cancel", pad=[5, 5]), sg.Button("Continue", pad=[5, 5])])
+        layout.append([sg.Button("Cancel", pad=self.pad), sg.Button("Continue", pad=self.pad)])
 
         window = sg.Window("Delete Data", layout, font=self.font)
         while True:
@@ -216,6 +232,35 @@ class GUI:
                 break
         window.close()
 
+    def quick_view_data(self, tasks):
+        layout = [
+            [sg.Text("Choose data to view:", font=self.header_font, pad=self.pad)],
+        ]
+        for task in tasks:
+            if os.path.getsize(task.results_file) == 0:
+                continue
+            else:
+                layout.append([sg.Button(task.name)])
+        if len(layout) == 1:
+            layout.append([sg.Text("None")])
+        layout.append([sg.Button("Cancel", pad=self.pad)])
+
+        window = sg.Window("Quick View Data", layout, font=self.font)
+        while True:
+            event, values = window.read()
+            if event == "Cancel" or event == sg.WIN_CLOSED:
+                break
+            else:
+                for task in tasks:
+                    if event == task.name:
+                        headings, values = task.get_data()
+                        data_layout = [
+                            [sg.Table(values=values, headings=headings, display_row_numbers=True, num_rows=min(25, len(values)))]
+                        ]
+                        sg.Popup(data_layout, font=self.font)
+        window.close()
+
+
     def get_screen_size(self):
         cmd1 = ['xrandr']
         cmd2 = ['grep', '*']
@@ -225,6 +270,7 @@ class GUI:
         resolution_string, junk = pipe2.communicate()
         resolution = resolution_string.split()[0]
         return resolution.decode()
+
 
 
 if __name__ == "__main__":
