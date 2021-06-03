@@ -96,7 +96,7 @@ class GUI:
             [sg.Text("Source Code: https://github.com/mdberkey/ChimpPygames")]
         ]
 
-        main_window = sg.Window("Marm Pygames", layout, margins=self.size, font=self.font)
+        main_window = sg.Window("ChimpPygames 0.3.0", layout, margins=self.size, font=self.font)
 
         while True:
             event, values = main_window.read()
