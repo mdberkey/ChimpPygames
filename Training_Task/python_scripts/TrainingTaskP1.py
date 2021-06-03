@@ -70,10 +70,11 @@ running = True
 while running:
     for event in pg.event.get():
         PgTools.quit_pg(event)
-        if event.type == MOUSEBUTTONDOWN:
+        if event.type == PgTools.input_mode:
             xCoord, yCoord = event.pos
-            if screen.fg.get_at((xCoord, yCoord)) != (0, 0, 0):
-                on_bg = False
+            if PgTools.touchscreen:
+                if screen.fg.get_at((xCoord, yCoord)) != (0, 0, 0):
+                    on_bg = False
             if stimulus.collidepoint(xCoord, yCoord) and not on_bg:
                 PgTools.response(screen, True, passDelay)
                 on_bg = True

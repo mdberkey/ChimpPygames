@@ -20,13 +20,18 @@ for line in file:
 file.close()
 
 # Constants
-SCREEN_SIZE = (int(params["screen_width"]), int(params["screen_height"]))  # (length/width, height) of Touchscreen in px
+SCREEN_SIZE = (int(params["screen_width"]), int(params["screen_height"]))  # (length/width, height) of touchscreen in px
 BLACK = (0, 0, 0)
 GREEN = (0, 128, 0)
 RED = (255, 0, 0)
-CURSOR_VISIBLE = True
+cursor_visible = True
+touchscreen = False
+input_mode = MOUSEMOTION
 if ("y" in str(params["cursor_hidden"]) or "Y" in str(params["cursor_hidden"])):
-    CURSOR_VISIBLE = False
+    cursor_visible = False
+if ("y" in str(params["touchscreen_mode"]) or "Y" in str(params["cursor_hidden"])):
+    touchscreen = True
+    input_mode = MOUSEBUTTONDOWN
 
 
 # Screen Tools
@@ -62,7 +67,7 @@ def get_params(fileObj):
     reads all parameter variables in opened file 'fileObj'
     :return: parameter's values in a dictionary
     """
-    if not CURSOR_VISIBLE:  # sets mouse to invisible
+    if not cursor_visible:  # sets mouse to invisible
         pg.mouse.set_cursor((8, 8), (0, 0), (0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0))
     global cursor_img
     cursor_img = pg.image.load("reqs/cursor_A.png").convert_alpha()
@@ -132,11 +137,11 @@ def set_cursor(screen, start_x=0, start_y=0, noPos=False, mid=False, randCorner=
     screen.bg.blit(screen.fg.convert(), (0, 0))
 
 
-def draw_cursor(screen, visible=True):
+def draw_cursor(screen, hidden=touchscreen):
     """
     updates cursor to new position
     :param screen: screen obj to draw cursor upon
-    :param visible: cursor is invisible if False
+    :param hidden: cursor is invisible if False
     :return: True if cursor is on background, false otherwise
     """
     screen.fg.blit(screen.bg.convert(), (0, 0))
@@ -145,7 +150,7 @@ def draw_cursor(screen, visible=True):
     on_bg = False
     if fgColor == (0, 0, 0):
         on_bg = True
-    if visible:
+    if not hidden:
         screen.fg.blit(cursor_img, (xCoord - 25, yCoord - 25))
     return on_bg
 
