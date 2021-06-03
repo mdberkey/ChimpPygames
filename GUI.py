@@ -3,10 +3,6 @@ import sys
 import os
 import subprocess
 import shutil
-try:
-    from pandas import read_csv
-except ModuleNotFoundError:
-    print("Error: Pandas is not installed so \'Quick Data View\' will not function.")
 
 #sys.path.append(os.path.join("Users", "michaelberkey", "work", "ChimpPygames"))
 sys.path.append(os.path.join("/home", "pi", "Desktop", "ChimpPygames"))

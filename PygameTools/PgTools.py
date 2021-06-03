@@ -25,9 +25,10 @@ BLACK = (0, 0, 0)
 GREEN = (0, 128, 0)
 RED = (255, 0, 0)
 CURSOR_VISIBLE = True
-if("y" in str(params["cursor_hidden"]) or "Y" in str(params["cursor_hidden"])):
+if ("y" in str(params["cursor_hidden"]) or "Y" in str(params["cursor_hidden"])):
     CURSOR_VISIBLE = False
-    
+
+
 # Screen Tools
 class Screen(object):
     def __init__(self, size=SCREEN_SIZE, col=BLACK, fullscreen=True):
@@ -43,7 +44,7 @@ class Screen(object):
         self.bg.fill(col)
         flags = pg.FULLSCREEN
         if fullscreen:
-            self.fg = pg.display.set_mode(size, flags) # dynamic objects go in foreground (fg)
+            self.fg = pg.display.set_mode(size, flags)  # dynamic objects go in foreground (fg)
         else:
             self.fg = pg.display.set_mode(size)
 
@@ -53,7 +54,6 @@ class Screen(object):
         """
         self.fg.blit(self.bg.convert(), (0, 0))
         pg.display.update()
-        
 
 
 # Game Tools
@@ -62,11 +62,11 @@ def get_params(fileObj):
     reads all parameter variables in opened file 'fileObj'
     :return: parameter's values in a dictionary
     """
-    if not CURSOR_VISIBLE:         # sets mouse to invisible
-        pg.mouse.set_cursor((8,8),(0,0),(0,0,0,0,0,0,0,0),(0,0,0,0,0,0,0,0))
-    global cursor_img 
+    if not CURSOR_VISIBLE:  # sets mouse to invisible
+        pg.mouse.set_cursor((8, 8), (0, 0), (0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0))
+    global cursor_img
     cursor_img = pg.image.load("reqs/cursor_A.png").convert_alpha()
-     
+
     params = {}
     for line in fileObj:
         line = line.strip()
@@ -105,6 +105,7 @@ def response(screen, accuracy=None, delay=5000):
     pg.event.clear()
     screen.bg.fill(BLACK)
 
+
 def set_cursor(screen, start_x=0, start_y=0, noPos=False, mid=False, randCorner=False):
     """
     sets screen for cursor support
@@ -114,7 +115,7 @@ def set_cursor(screen, start_x=0, start_y=0, noPos=False, mid=False, randCorner=
     """
     if not noPos:
         if mid:
-            start_x, start_y  = int(SCREEN_SIZE[0] / 2), int(SCREEN_SIZE[1] / 2)
+            start_x, start_y = int(SCREEN_SIZE[0] / 2), int(SCREEN_SIZE[1] / 2)
         elif randCorner:
             corner = random.randint(0, 3)
             if corner == 0:
@@ -128,12 +129,14 @@ def set_cursor(screen, start_x=0, start_y=0, noPos=False, mid=False, randCorner=
         else:
             noPos = True
         pg.mouse.set_pos(start_x, start_y)
-    screen.bg.blit(screen.fg.convert(), (0, 0)) 
+    screen.bg.blit(screen.fg.convert(), (0, 0))
 
-def draw_cursor(screen):
+
+def draw_cursor(screen, visible=True):
     """
     updates cursor to new position
     :param screen: screen obj to draw cursor upon
+    :param visible: cursor is invisible if False
     :return: True if cursor is on background, false otherwise
     """
     screen.fg.blit(screen.bg.convert(), (0, 0))
@@ -142,8 +145,10 @@ def draw_cursor(screen):
     on_bg = False
     if fgColor == (0, 0, 0):
         on_bg = True
-    screen.fg.blit(cursor_img, (xCoord - 25, yCoord - 25))
+    if visible:
+        screen.fg.blit(cursor_img, (xCoord - 25, yCoord - 25))
     return on_bg
+
 
 def rand_x_coord(length):
     """
@@ -167,8 +172,8 @@ def rand_color(bright=True):
     :return: random rgb color value (x,y,z)
     """
     if bright:
-        h,s,l = random.random(), 0.5 + random.random()/2.0, 0.4 + random.random()/5.0
-        return tuple([int(256*i) for i in colorsys.hls_to_rgb(h,l,s)])
+        h, s, l = random.random(), 0.5 + random.random() / 2.0, 0.4 + random.random() / 5.0
+        return tuple([int(256 * i) for i in colorsys.hls_to_rgb(h, l, s)])
     return random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)
 
 
@@ -180,14 +185,15 @@ def two_rand_color(bright=True):
     colA = ()
     colB = ()
     if bright:
-        h,s,l = random.random(), 0.5 + random.random()/2.0, 0.4 + random.random()/5.0
-        colA = tuple([int(256*i) for i in colorsys.hls_to_rgb(h,l,s)])
-        h,s,l = random.random(), 0.5 + random.random()/2.0, 0.4 + random.random()/5.0
-        colB = tuple([int(256*i) for i in colorsys.hls_to_rgb(h,l,s)])
+        h, s, l = random.random(), 0.5 + random.random() / 2.0, 0.4 + random.random() / 5.0
+        colA = tuple([int(256 * i) for i in colorsys.hls_to_rgb(h, l, s)])
+        h, s, l = random.random(), 0.5 + random.random() / 2.0, 0.4 + random.random() / 5.0
+        colB = tuple([int(256 * i) for i in colorsys.hls_to_rgb(h, l, s)])
         return colA, colB
     colA = random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)
     colB = random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)
     return colA, colB
+
 
 def rand_line_point(seed=random.randint(0, 999999), pointA=(0, 0), pointB=(0, 0)):
     """
@@ -205,8 +211,9 @@ def rand_line_point(seed=random.randint(0, 999999), pointA=(0, 0), pointB=(0, 0)
         yCoord = np.random.randint(int(pointA[1]), int(pointB[1]))
     return (xCoord, yCoord)
 
-def rand_shape(screen, coords=(0, 0), size=(0, 0), seed=random.randint(0, 999999),):
-   """
+
+def rand_shape(screen, coords=(0, 0), size=(0, 0), seed=random.randint(0, 999999), ):
+    """
    Draws random black shapes on a rectangular surface to alter the shape of a 
    rectangle to be a random shape
    :param screen: surface pattern is drawn on
@@ -214,17 +221,18 @@ def rand_shape(screen, coords=(0, 0), size=(0, 0), seed=random.randint(0, 999999
     :param size: (length, height) size of the pattern square
     :param seed: random seed of the shapes
    """
-   np.random.seed(seed)
-   randInt = np.random.randint(0,4)
-   if randInt == 0:
-       return
-    
-   cornerCoords = [coords, (coords[0] + size[0], coords[1]), 
-   (coords[0], coords[1] + size[1]), (coords[0] + size[0], coords[1] + size[1]),]
-   midpointCoords = [(int(coords[0] + size[0]/2), coords[1]),(coords[0], int(coords[1] + size[1]/2)),
-   (cornerCoords[1][0], int(coords[1] + size[1]/2)), (int(coords[0] + size[0]/2), cornerCoords[2][1])]
-   
-   if randInt == 1: # makes the rectangle a triangle in 1 of 4 directions
+    np.random.seed(seed)
+    randInt = np.random.randint(0, 4)
+    if randInt == 0:
+        return
+
+    cornerCoords = [coords, (coords[0] + size[0], coords[1]),
+                    (coords[0], coords[1] + size[1]), (coords[0] + size[0], coords[1] + size[1]), ]
+    midpointCoords = [(int(coords[0] + size[0] / 2), coords[1]), (coords[0], int(coords[1] + size[1] / 2)),
+                      (cornerCoords[1][0], int(coords[1] + size[1] / 2)),
+                      (int(coords[0] + size[0] / 2), cornerCoords[2][1])]
+
+    if randInt == 1:  # makes the rectangle a triangle in 1 of 4 directions
         i = np.random.randint(0, 4)
         if i == 0:
             pg.draw.polygon(screen, 0, (cornerCoords[0], cornerCoords[1], cornerCoords[2]))
@@ -234,46 +242,47 @@ def rand_shape(screen, coords=(0, 0), size=(0, 0), seed=random.randint(0, 999999
             pg.draw.polygon(screen, 0, (cornerCoords[1], cornerCoords[2], cornerCoords[3]))
         else:
             pg.draw.polygon(screen, 0, (cornerCoords[0], cornerCoords[2], cornerCoords[3]))
-   elif randInt == 2: # cuts out a square in 1 of 4 corners
+    elif randInt == 2:  # cuts out a square in 1 of 4 corners
         i = np.random.randint(0, 4)
         if i == 0:
             pg.draw.rect(screen, 0, (cornerCoords[0][0], cornerCoords[0][1],
-            (midpointCoords[0][0] - cornerCoords[0][0]),
-            (midpointCoords[1][1] - cornerCoords[0][1])))
+                                     (midpointCoords[0][0] - cornerCoords[0][0]),
+                                     (midpointCoords[1][1] - cornerCoords[0][1])))
         elif i == 1:
             pg.draw.rect(screen, 0, (cornerCoords[2][0], cornerCoords[2][1],
-            (midpointCoords[3][0] - cornerCoords[2][0]),
-            (midpointCoords[1][1] - cornerCoords[2][1])))
+                                     (midpointCoords[3][0] - cornerCoords[2][0]),
+                                     (midpointCoords[1][1] - cornerCoords[2][1])))
         elif i == 2:
             pg.draw.rect(screen, 0, (midpointCoords[0][0], midpointCoords[0][1],
-            (cornerCoords[1][0] - midpointCoords[0][0]),
-            (midpointCoords[2][1] - cornerCoords[1][1])))
+                                     (cornerCoords[1][0] - midpointCoords[0][0]),
+                                     (midpointCoords[2][1] - cornerCoords[1][1])))
         else:
             pg.draw.rect(screen, 0, (midpointCoords[3][0],
-            midpointCoords[2][1],
-            (cornerCoords[3][0] - midpointCoords[3][0]),
-            (cornerCoords[3][1] - midpointCoords[2][1])))
-   elif randInt == 3: # cuts out randomly sized triangles to make random polygons
-       randBool = np.random.randint(0, 2, size=4)
-       if bool(randBool[0]):
-           pg.draw.polygon(screen, 0, (cornerCoords[0], rand_line_point(seed, cornerCoords[0], midpointCoords[0]),
-           rand_line_point(seed, cornerCoords[0], midpointCoords[1])))
-       if bool(randBool[1]):
-           pg.draw.polygon(screen, 0, (cornerCoords[1], rand_line_point(seed, midpointCoords[0], cornerCoords[1]),
-           rand_line_point(seed, cornerCoords[1], midpointCoords[2])))
-       if bool(randBool[2]):
-           pg.draw.polygon(screen, 0, (cornerCoords[2], rand_line_point(seed, cornerCoords[2], midpointCoords[3]),
-           rand_line_point(seed, midpointCoords[1], cornerCoords[2])))
-       if bool(randBool[3]):
-           pg.draw.polygon(screen, 0, (cornerCoords[3], rand_line_point(seed, midpointCoords[3], cornerCoords[3]),
-           rand_line_point(seed, midpointCoords[2], cornerCoords[3])))
+                                     midpointCoords[2][1],
+                                     (cornerCoords[3][0] - midpointCoords[3][0]),
+                                     (cornerCoords[3][1] - midpointCoords[2][1])))
+    elif randInt == 3:  # cuts out randomly sized triangles to make random polygons
+        randBool = np.random.randint(0, 2, size=4)
+        if bool(randBool[0]):
+            pg.draw.polygon(screen, 0, (cornerCoords[0], rand_line_point(seed, cornerCoords[0], midpointCoords[0]),
+                                        rand_line_point(seed, cornerCoords[0], midpointCoords[1])))
+        if bool(randBool[1]):
+            pg.draw.polygon(screen, 0, (cornerCoords[1], rand_line_point(seed, midpointCoords[0], cornerCoords[1]),
+                                        rand_line_point(seed, cornerCoords[1], midpointCoords[2])))
+        if bool(randBool[2]):
+            pg.draw.polygon(screen, 0, (cornerCoords[2], rand_line_point(seed, cornerCoords[2], midpointCoords[3]),
+                                        rand_line_point(seed, midpointCoords[1], cornerCoords[2])))
+        if bool(randBool[3]):
+            pg.draw.polygon(screen, 0, (cornerCoords[3], rand_line_point(seed, midpointCoords[3], cornerCoords[3]),
+                                        rand_line_point(seed, midpointCoords[2], cornerCoords[3])))
+
 
 def rand_pattern(
-    screen,
-    coords=(0, 0),
-    size=(0, 0),
-    col=rand_color(),
-    i=(random.randint(0, 2), random.randint(0, 1)),
+        screen,
+        coords=(0, 0),
+        size=(0, 0),
+        col=rand_color(),
+        i=(random.randint(0, 2), random.randint(0, 1)),
 ):
     """
     Draws a random pattern in a set area
@@ -354,7 +363,7 @@ def square_pat(screen, coords, size, col, i):
                         screen,
                         col,
                         (coords[0] + k - sideLength, coords[1] + j - sideLength,
-                        sideLength, sideLength),
+                         sideLength, sideLength),
                     )
                     xCoord += sideLength
                     status = False
@@ -380,7 +389,7 @@ def pellet(num=1):
         """
     for i in range(num):
         os.system(
-         "sudo python /home/pi/Desktop/ChimpPygames/PygameTools/PelletFeeder/pellet-K1.py"
+            "sudo python /home/pi/Desktop/ChimpPygames/PygameTools/PelletFeeder/pellet-K1.py"
         )
         print("pellet")
 
@@ -398,14 +407,15 @@ def sound(correct=None):
         pg.mixer.Sound(os.path.join("reqs", "sounds", "incorrect.wav")).play()
         print("not correct sound")
 
+
 def end_screen(screen):
     screen.refresh()
     font = pg.font.SysFont("piday", 50)
     text = font.render('Trials Completed. Press \'esc\' or \'q\' to end task.', True, BLACK, RED).convert()
-    screen.fg.blit(text, (75, SCREEN_SIZE[1] /2))
+    screen.fg.blit(text, (75, SCREEN_SIZE[1] / 2))
     pg.display.update()
-    
-    
+
+
 def write_ln(filename=None, data="", csv=True, date=True):
     """
     Write a list to a file as comma- or tab-delimited. Not passing a list
@@ -416,7 +426,7 @@ def write_ln(filename=None, data="", csv=True, date=True):
     :param csv: comma-delimited if True, tab-delimited if False
     :param csv: Adds date/time on each line if True, not if False
     """
-    if(date == True):
+    if (date == True):
         data.append(datetime.now().strftime("\"D:%m/%d/%y T:%H:%M:%S\""))
     with open(filename, "a+") as data_file:
         if csv:
