@@ -207,8 +207,7 @@ class GUI:
             elif event == "Continue":
                 for task in export_tasks:
                     shutil.copy(task.results_file, os.path.join("/home", "pi", "Desktop", "CPG Exported Data", task.name + ".csv"))
-                sg.Popup("Data Exported", font=self.font)
-                subprocess.run(["pcmanfm", "/home/pi/Desktop/ChimpPygames/CPG Exported Data"])
+                sg.Popup("Data Exported to \'~/Desktop/CPG Expored Data\'", font=self.font)
                 break
         window.close()
 
