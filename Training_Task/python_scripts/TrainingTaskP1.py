@@ -72,6 +72,8 @@ while running:
         PgTools.quit_pg(event)
         if event.type == MOUSEBUTTONDOWN:
             xCoord, yCoord = event.pos
+            if screen.fg.get_at((xCoord, yCoord)) != (0, 0, 0):
+                on_bg = False
             if stimulus.collidepoint(xCoord, yCoord) and not on_bg:
                 PgTools.response(screen, True, passDelay)
                 on_bg = True
@@ -98,6 +100,6 @@ while running:
                         PgTools.quit_pg(event)
             start_trial(stimLength, stimHeight)
     
-    on_bg = PgTools.draw_cursor(screen, visible=False)
+    on_bg = PgTools.draw_cursor(screen)
     pg.display.update()
 
