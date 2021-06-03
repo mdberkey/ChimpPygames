@@ -132,13 +132,18 @@ class GUI:
             [sg.Column(params_col)],
             [sg.Button("Back to Main Menu"), sg.Button("Confirm Parameters")],
         ]
+
         if is_task:
             layout.append([sg.Text("Note: You must \'Confirm Parameters\' before starting task.")])
             start_button = sg.Button("Start Task", disabled=True, key="ST")
             layout[1].append(start_button)
+
+            if task.name == "Social Stimuli as Rewards":
+                layout.insert(1, [sg.Button("Open Stimuli", key="SS")])
         else:
             layout.insert(0, [sg.Text("Detected screen Size: " + self.get_screen_size())])
             layout.append([sg.Text("Note: The screen size affects the tasks, not this GUI.")])
+
 
         params_window = sg.Window(task.name + " Parameters", layout, margins=self.size, font=self.font)
         while True:
@@ -171,6 +176,8 @@ class GUI:
             elif event == "ST":
                 if task.start_task():
                     sg.Popup("Task Completed.", font=self.font)
+            elif event == "SS":
+                subprocess.call("sudo pcmanfm /home/pi/Desktop/ChimpPygames/Social_Stimuli_As_Rewards/Social_Stimuli")
         params_window.close()
 
     def export_data(self, tasks):
