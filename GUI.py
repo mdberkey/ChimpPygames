@@ -3,6 +3,7 @@ import sys
 import os
 import subprocess
 import shutil
+import pandas as pd
 
 #sys.path.append(os.path.join("Users", "michaelberkey", "work", "ChimpPygames"))
 sys.path.append(os.path.join("/home", "pi", "Desktop", "ChimpPygames"))
@@ -47,13 +48,14 @@ class Task:
         return True
 
     def get_data(self):
-        results = open(self.results_file, "r")
-        data_list = []
-        for line in results:
-            data_list.append(line)
-        results.close()
-        headings = data_list.pop(0)
-        return headings, data_list
+        try:
+            data_frame = pd.read_csv(self.results_file, sep=',', engine='python', header=None)
+            header_list = data_frame.iloc[0].tolist()
+            data_list = data_frame[1:].values.tolist()
+        except:
+            sg.popup_error('Error reading data file.')
+            return
+        return header_list, data_list
 
 
 class GUI:
@@ -251,9 +253,9 @@ class GUI:
             else:
                 for task in tasks:
                     if event == task.name:
-                        headings, values = task.get_data()
+                        headings, data = task.get_data()
                         data_layout = [
-                            [sg.Table(values=values, headings=headings, display_row_numbers=True, num_rows=min(25, len(values)))]
+                            [sg.Table(values=data, headings=headings, display_row_numbers=True, num_rows=min(25, len(data)))]
                         ]
                         window = sg.Window(task.name + "Results", data_layout, font=self.font)
                         while True:
