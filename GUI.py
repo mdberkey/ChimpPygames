@@ -177,7 +177,9 @@ class GUI:
                 if task.start_task():
                     sg.Popup("Task Completed.", font=self.font)
             elif event == "SS":
-                subprocess.call("sudo pcmanfm /home/pi/Desktop/ChimpPygames/Social_Stimuli_As_Rewards/Social_Stimuli")
+                subprocess.call(["ls", "-l"])
+                subprocess.run(["pcmanfm", "/home/pi/Desktop/ChimpPygames/Social_Stimuli_As_Rewards/Social_Stimuli"])
+
         params_window.close()
 
     def export_data(self, tasks):
