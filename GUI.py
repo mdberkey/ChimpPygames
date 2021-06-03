@@ -53,9 +53,7 @@ class Task:
             data_list.append(line)
         results.close()
         headings = data_list.pop(0)
-        data_list.remove(0)
         return headings, data_list
-
 
 
 class GUI:
@@ -257,7 +255,12 @@ class GUI:
                         data_layout = [
                             [sg.Table(values=values, headings=headings, display_row_numbers=True, num_rows=min(25, len(values)))]
                         ]
-                        sg.Popup(data_layout, font=self.font)
+                        window = sg.Window(task.name + "Results", data_layout, font=self.font)
+                        while True:
+                            event, values = window.read()
+                            if event == sg.WIN_CLOSED:
+                                break
+                        window.close()
         window.close()
 
 
