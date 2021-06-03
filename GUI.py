@@ -92,8 +92,8 @@ class GUI:
 
         layout = [
             [sg.Column(task_col), sg.VSeparator(), sg.Column(option_col)],
-            [sg.Text("For Info/Help: Please refer to the user manual found at:")],
-            [sg.Text("some-website.com")]
+            [sg.Text("For Info/Help: Please refer to the user manual.")],
+            [sg.Text("Source Code: https://github.com/mdberkey/ChimpPygames")]
         ]
 
         main_window = sg.Window("Marm Pygames", layout, margins=self.size, font=self.font)
@@ -177,7 +177,6 @@ class GUI:
                 if task.start_task():
                     sg.Popup("Task Completed.", font=self.font)
             elif event == "SS":
-                subprocess.call(["ls", "-l"])
                 subprocess.run(["pcmanfm", "/home/pi/Desktop/ChimpPygames/Social_Stimuli_As_Rewards/Social_Stimuli"])
 
         params_window.close()
@@ -209,6 +208,7 @@ class GUI:
                 for task in export_tasks:
                     shutil.copy(task.results_file, os.path.join("/home", "pi", "Desktop", "CPG Exported Data", task.name + ".csv"))
                 sg.Popup("Data Exported", font=self.font)
+                subprocess.run(["pcmanfm", "/home/pi/Desktop/ChimpPygames/CPG Exported Data"])
                 break
         window.close()
 
