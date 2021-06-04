@@ -1,7 +1,9 @@
 # ChimpPygames
 ## Primate Research Software for Raspberry PI
-![match_to_sample](https://user-images.githubusercontent.com/34894903/120866583-e16f6c80-c555-11eb-95d1-da2e143fc835.png)
-##### Image above shows the match to sample task
+[![Python Version](https://img.shields.io/badge/Python-3.7%20-blue.svg)](https://www.python.org/)
+![platform](https://img.shields.io/badge/Debian-Buster%20-red.svg)
+![Version](https://img.shields.io/badge/Version-0.3.1-green)
+
 
 #### Info
 ChimPygames or CPG for short is a program that gives primate researchers
