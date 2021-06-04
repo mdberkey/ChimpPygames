@@ -8,6 +8,6 @@ screen_height = 600
 cursor_hidden = y
 #
 # "y" = tasks are on touchscreen mode, "n" = tasks are on rollover mode
-touchscreen_mode = y
+touchscreen_mode = n
 #
 # *Do not forget to save the file* #
