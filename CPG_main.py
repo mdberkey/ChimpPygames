@@ -158,6 +158,8 @@ class GUI:
                             values[key] = 'y'
                         else:
                             values[key] = 'n'
+                            if key == "touchscreen_mode":
+                                subprocess.Popen(['qjoypad "gamepad"'], shell=True)
                     elif key == "retention_interval_lengths":
                         try:
                             assert(list(map(int, value.split(","))))
