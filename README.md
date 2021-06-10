@@ -10,7 +10,7 @@ ChimPygames or CPG for short is a program that gives primate researchers
 an easy way to gather data on primate behavior through testing testing their
 abilities to interact with the "Tasks" designed with the Pygame module. For 
 more detailed instructions on the setup and use of CPG, please refere to 
-the User Manual found here: (comming soon)
+the User Manual PDF.
 
 #### Requirements:
 - Software:
