@@ -1,3 +1,0 @@
-subject_name, number_of_possible_locations, trial, SCS, SCS_location, RI, accuracy, "D:06/09/21 T:17:41:19"
-null, 9, 1, "(78, 220, 220)", 7, 1000, passed, "D:06/09/21 T:17:41:25"
-null, 9, 2, "(246, 45, 182)", 4, 500, passed, "D:06/09/21 T:17:41:31"
