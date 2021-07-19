@@ -43,7 +43,12 @@ class Task:
         return True
 
     def start_task(self):
-        subprocess.call(['sh', self.script_file], cwd=self.folder_name)
+        # I know this is bad code, but to fix it would take time which I dont have as of now.
+        if self.name == 'Social Stumil as Rewards':
+            import Social_Stimuli_As_Rewards.python_scripts.SocialStimuli as ss
+            return True
+        else:
+            subprocess.call(['sh', self.script_file], cwd=self.folder_name)
         return True
 
     def get_data(self):
