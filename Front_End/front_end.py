@@ -22,7 +22,7 @@ class pcolors:
 cmd_dict = {
         "tt1": "TrainingTaskP1.sh",
         "tt2": "TrainingTaskP2.sh",
-        "tcd": "TwoChoiceDiscrim.sh",
+        "tcd": "SidesTask.sh",
         "mts": "MatchToSample.sh",
         "dmts": "DelayedMatchToSample.sh",
         "ot": "OddityTesting.sh",
