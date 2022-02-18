@@ -75,7 +75,7 @@ class GUI:
                  results_file="/resultsP1.csv"),
             Task("Training 2", "Training_Task", "TrainingTaskP2.sh", params_file="/parametersP2.dat",
                  results_file="/resultsP2.csv"),
-            Task("Two Choice Discrimination", "Two_Choice_Discrimination", "SidesTask.sh"),
+            Task("Two Choice Discrimination", "Two_Choice_Discrimination", "TwoChoiceDiscrim.sh"),
             Task("Social Stimuli as Rewards", "Social_Stimuli_As_Rewards", "SocialStimuli.sh"),
             Task("Match to Sample", "Match_To_Sample", "MatchToSample.sh"),
             Task("Delayed Match to Sample", "Delayed_Match_To_Sample", "DelayedMatchToSample.sh"),

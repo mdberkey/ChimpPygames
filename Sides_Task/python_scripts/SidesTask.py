@@ -71,6 +71,7 @@ trialNum = 1
 sideBools = [False, False, False, False]
 last_stim = 0
 passedTrials = 0
+stims = []
 for i in range(sidesNum):
     sideBools[i] = True
 start_trial(stimWidth, sideBools)
