@@ -36,7 +36,6 @@ def start_trial(width, sideBools):
     sizes = [(PgTools.SCREEN_SIZE[0], width), (width, PgTools.SCREEN_SIZE[1]), (width, PgTools.SCREEN_SIZE[1]), (PgTools.SCREEN_SIZE[0], width)]
     for i in range(4):
         if not sideBools[i]:
-            stims[i] = False
             continue
 
         stims[i] = pg.draw.rect(
@@ -72,6 +71,8 @@ sideBools = [False, False, False, False]
 last_stim = 0
 passedTrials = 0
 stims = []
+for i in range(4):
+    stims.append(pg.draw.rect(screen.fg, PgTools.GREEN, (0, 0, 0, 0)))
 for i in range(sidesNum):
     sideBools[i] = True
 start_trial(stimWidth, sideBools)
