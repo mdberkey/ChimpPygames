@@ -1,1 +1,71 @@
-<mxfile host="app.diagrams.net" modified="2023-01-17T23:55:46.832Z" agent="5.0 (Windows)" etag="Chx1__oD2Kvq63gyqC3p" version="20.8.5" type="github"><diagram id="QsU19FumD5f-WDrpiSSF" name="Page-1">5Vhbc9o4GP01zLQPZuQbYR8phG1ms21mw8zuPgpbsRVkyyPLYPrr95Ms2xibhG1D6Ex5QTq6n/MdXTxy50n5u8BZ/CcPCRs5KCxH7mLkOLbnevCnkL1Bpt6kQiJBQ4O1wCP9RgyIDFrQkOSdipJzJmnWBQOepiSQHQwLwXfdak+cdUfNcER6wGOAWR/9m4YyrtCpj1r8M6FRXI9sI1OS4LqyAfIYh3x3ALm3I3cuOJdVKinnhCn2al6qdssTpc3EBEnlOQ12f9ytvtibrZh823z2nu/orCwtI8YWs8IseEHzjOG9mbPc10SQEHgxWS5kzCOeYnbbop8EL9KQqNEQ5No695xnANoAPhMp90ZkXEgOUCwTZkphIWL/j2mvM/+qzPjGr/OL8rB0sTe5arJqhie5MVDOCxGQFwgx8SqxiIh8oZ7fKAixT3hCYD7QThCGJd1254FNDEZNvVYmSBil/odqXk+1v3CerYnQc3igPfEg9jKVDIq1UmoXU0keM6yZ2IFzuzqsKyHv1w2Ag02k5f1aSEZTYvAQi81X6IZKrcQY+V3Q0ajdKLQlQpLyZY36nJoGjZHMVuJ6Jr9rfWnXdeIDT07RhWS46clwl17FNyWVjW0gXbnG8U22NY3K1J45YbaO02A363itzT4QQYFEIt7egf6ZDvSu6UC/J31P+FdMBoatzqsnWirx38IiPupaxEEDFpkOWMS+mEds7xqOeMNwnJ4ZjjYaluZ94tH2fxWaTzjgnWie/Co0O9ekeTqwu06YVJcLuoVkpJIrnG+g0pzhPK+LYbSDGgONvuAEepxBu5XANKVpBEm7rrgWx01f7fABC6wPwrzqNqSwqTvoQ6oGcpAF9XCitn7TQbWoj2f3f5dmhepwtc/qiRcZU11/UMeEAp75Ppc02MAy5vp5VARxHghC0gogMhifPyDc8KoRM/2AmR2OBI1jrta1XDMSf9SIWZ7uxlIhSIJCqAshBAsFhdzlD7B7ftMjV3Y998pRfIHLqeUP3E5d932PXtSzkQ56FUPaO8c7GWPwqj7jfXCJq4t3xF9zaz/gb+jmcjn27FfYQ/0r31UZtG+OKfSvTaHTp7CibqS8gH4u/rxjCzuTgdszGrIwuhiD7sBJeOJtTxP9KeuQJsUHDTCbMRqlgEl14WjQe7wm7IHnVFKuStdcSp6ovVwVfGre/HPOuNBjuU/6B1X0YLNaBTQkiZnPIpYyqw5HOAmWQZh6Yxrw9InCBi3GAYwIWzmWGP4UDmf5kuQ5iEYxs3CWWSDbUl28liGXVsIFsRKSFlZMQwIhNh1n6hD/8R18ciz/jdeX35kOyF+Dby9//wvDCvcC4Ape6ZH1W98qzpBVnO+wCmTbr6S67OBjs3v7Hw==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2023-01-18T00:42:51.123Z" agent="5.0 (Windows)" etag="WAnhQYmD_fXAJDcHZgyq" version="20.8.5" type="github">
+  <diagram id="QsU19FumD5f-WDrpiSSF" name="Page-1">
+    <mxGraphModel dx="1434" dy="1846" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="wKITN1kvr6zkH4jIiAxx-6" value="&lt;div&gt;Display Output&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" parent="1" source="wKITN1kvr6zkH4jIiAxx-4" target="wKITN1kvr6zkH4jIiAxx-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yVIJtM_bbdcMorckilQp-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wKITN1kvr6zkH4jIiAxx-4">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="240" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wKITN1kvr6zkH4jIiAxx-4" value="Raspberry Pi" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;" parent="1" vertex="1">
+          <mxGeometry x="310" y="160" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="wKITN1kvr6zkH4jIiAxx-7" value="Touchscreen Input" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=110;entryDy=10;entryPerimeter=0;" parent="1" source="wKITN1kvr6zkH4jIiAxx-5" target="wKITN1kvr6zkH4jIiAxx-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wKITN1kvr6zkH4jIiAxx-5" value="Screne/touchscreen" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="590" y="20" width="180" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="wKITN1kvr6zkH4jIiAxx-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="wKITN1kvr6zkH4jIiAxx-8" target="wKITN1kvr6zkH4jIiAxx-10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wKITN1kvr6zkH4jIiAxx-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="wKITN1kvr6zkH4jIiAxx-8" target="wKITN1kvr6zkH4jIiAxx-11" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wKITN1kvr6zkH4jIiAxx-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="wKITN1kvr6zkH4jIiAxx-8" target="wKITN1kvr6zkH4jIiAxx-12" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wKITN1kvr6zkH4jIiAxx-8" value="&lt;div&gt;Task Class&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Name: str (ex: &quot;Training 1&quot;)&lt;br&gt;&lt;/div&gt;&lt;div&gt;Parameters: dict (str: ?) (name -&amp;gt; value)&lt;/div&gt;&lt;div&gt;Input Types: List(str) (ex: Screen, joystick)&lt;br&gt;&lt;/div&gt;&lt;div&gt;Output Types: (ex: Screen, Lights)&lt;br&gt;&lt;/div&gt;&lt;div&gt;Results path: (ex: /home/bleh) &amp;lt;- security risk?&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="220" y="-540" width="330" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="wKITN1kvr6zkH4jIiAxx-10" value="Train Task" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="40" y="-280" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="wKITN1kvr6zkH4jIiAxx-11" value="Train Task 2" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="130" y="-274" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="wKITN1kvr6zkH4jIiAxx-12" value="Task #300" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+          <mxGeometry x="425" y="-284" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="wKITN1kvr6zkH4jIiAxx-13" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/essential-app-1/16/dot-more-menu-hide-128.png" parent="1" vertex="1">
+          <mxGeometry x="260" y="-304" width="128" height="128" as="geometry" />
+        </mxCell>
+        <mxCell id="yVIJtM_bbdcMorckilQp-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="yVIJtM_bbdcMorckilQp-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="290" y="-110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yVIJtM_bbdcMorckilQp-1" value="&lt;div&gt;Main App Thread&lt;/div&gt;&lt;div&gt;scheduling&lt;/div&gt;&lt;div&gt;error handling&lt;/div&gt;&lt;div&gt;CMD UI&lt;/div&gt;&lt;div&gt;Timers&lt;br&gt;&lt;/div&gt;&lt;div&gt;GUI&lt;br&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="60" y="-110" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="yVIJtM_bbdcMorckilQp-7" value="&lt;div&gt;Task Thread&lt;/div&gt;&lt;div&gt;Game loop&lt;/div&gt;&lt;div&gt;Sprites&lt;/div&gt;&lt;div&gt;etc.&lt;br&gt;&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="270" y="-160" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="yVIJtM_bbdcMorckilQp-9" value="Joystick input" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="yVIJtM_bbdcMorckilQp-8" target="wKITN1kvr6zkH4jIiAxx-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yVIJtM_bbdcMorckilQp-8" value="Joystick" style="triangle;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="230" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="yVIJtM_bbdcMorckilQp-11" value="&lt;div&gt;Other in/out&lt;/div&gt;&lt;div&gt;Ex: Pellet&lt;br&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="210" y="60" width="80" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
