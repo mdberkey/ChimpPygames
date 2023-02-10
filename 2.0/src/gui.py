@@ -1,5 +1,6 @@
 import PySimpleGUI as sg
-from tasks import tt1
+import task
+
 
 class GUI:
 
@@ -12,16 +13,6 @@ class GUI:
             self.pad = [5, 5]
 
     def run(self):
-        tt1.test()
+        tasks = task.create_tasks()
+        print(tasks[0].name)
 
-gui = GUI()
-gui.run()
-
-# structure is almost complete.
-# need to do some testing to see that
-# everything works.
-# once that is done, nail GUI / json
-# param format.
-# then data dump format
-# then reimplement methods and tasks
-# should be done in about 2 weeks.
