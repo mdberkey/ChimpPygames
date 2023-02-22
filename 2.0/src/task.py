@@ -1,5 +1,5 @@
 import json
-from taskscripts import tt1, tt2
+from taskscripts import tt1, tt2, cht
 
 
 class Task:
@@ -19,5 +19,6 @@ def get_tasks():
 
 task_scripts = [
     ("Training Task 1", "tt1", tt1.run),
-    ("Training Task 2", "tt2", tt2.run)
+    ("Training Task 2", "tt2", tt2.run),
+    ("Chase Task", "cht", cht.run)
 ]
