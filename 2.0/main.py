@@ -5,7 +5,7 @@ import gui
 
 g = gui.GUI()
 
-g.run()
+g.main_menu()
 
 # I've got the main engine / task structure down.
 # need to mess around and get it working with assets, data, and param folders.

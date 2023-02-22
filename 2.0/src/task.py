@@ -1,22 +1,23 @@
-import pygame as pg
 import json
-import taskengines
-
-
-def create_tasks():
-    task_list = []
-    for name, abbr in taskengines.names:
-        task_list.append(Task(name, abbr))
-    return task_list
+from taskscripts import tt1, tt2
 
 
 class Task:
 
-    def __init__(self, name, abbr):
+    def __init__(self, name, abbr, script):
         self.name = name
         self.abbr = abbr
+        self.run = script
 
-    def load_params(self):
-        # use os.join
-        file = open(f"../parameters/{self.abbr}_params.json")
-        return json.load(file)
+
+def get_tasks():
+    tasks = []
+    for name, abbr, script in task_scripts:
+        tasks.append(Task(name, abbr, script))
+    return tasks
+
+
+task_scripts = [
+    ("Training Task 1", "tt1", tt1.run),
+    ("Training Task 2", "tt2", tt2.run)
+]
